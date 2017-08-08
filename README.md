@@ -90,6 +90,7 @@ MongoDB можно установить и запустить с помощью 
 
 | Название | Тип | Валидация |
 |----------|-----|-----------|
+|----------|-----|-----------|
 | Email | email | `required`
 | Password | password | `pattern=".{8,40}" required`
 | Repeat password | password | `required`

@@ -1,0 +1,31 @@
+<div>
+    <md-toolbar class="md-hue-2 header">
+        <div class="md-toolbar-tools">
+            <md-button ng-click="$ctrl.click()" class="md-icon-button" aria-label="Settings">
+                <md-icon><i class="material-icons">menu</i></md-icon>
+            </md-button>
+
+            <h2 flex>{{$ctrl.sss}}</h2>
+
+
+            <md-button ng-if="!$ctrl.status.authorization" ui-sref="auth" aria-label="Login">
+                <span>Sign in</span>
+                <md-icon><i class="material-icons">account_circle</i></md-icon>
+            </md-button>
+
+            <md-menu ng-if="$ctrl.status.authorization" md-offset="0 -7">
+                <md-button aria-label="Open demo menu" class="md-icon-button logout" ng-click="$mdMenu.open($event)">
+                    <span>{{$ctrl.email}}</span>
+                    <md-icon><i class="material-icons">account_circle</i></md-icon>
+                </md-button>
+                <md-menu-content width="4">
+                    <md-menu-item >
+                        <md-button ng-click="$ctrl.logout()"> <span md-menu-align-target>Log out</span></md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+
+        </div>
+
+    </md-toolbar>
+</div>

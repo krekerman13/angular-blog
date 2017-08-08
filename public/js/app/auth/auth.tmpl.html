@@ -1,0 +1,61 @@
+<div layout="row">
+
+<md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2><span>Registration</span></h2>
+        </div>
+    </md-toolbar>
+    <md-card-content>
+        <form name="Registration">
+            <md-input-container class="md-block">
+                <label>Login</label>
+                <input type="text" name="email" check-email="" ng-model="$ctrl.formData.registrationForm.email" placeholder="login" required=""/>
+                <div ng-messages="Registration.email.$error" role="alert" multiple="">
+                    <div class="my-message" ng-message="required">You must supply a email.</div>
+                    <div class="my-message" ng-message="emailExist">This address already exist</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Password</label>
+                <input type="password" name="password" ng-model="$ctrl.formData.registrationForm.password" placeholder="password" required="" ng-minlength="8" ng-maxlength="40" md-minlength="8" md-maxlength="40"/>
+                <div ng-messages="Registration.password.$error" role="alert" multiple="">
+                    <div class="my-message" ng-message="minlength">Too short</div>
+                    <div class="my-message" ng-message="maxlength">Too long</div>
+                    <div class="my-message" ng-message="required">Password field is required</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Password</label>
+                <input type="password" name="confirmPassword" ng-model="$ctrl.formData.registrationForm.confirmPassword" pwd-check="$ctrl.formData.registrationForm.password" placeholder="Repeat password" required="" md-minlength="8" md-maxlength="40"/>
+                <div ng-messages="Registration.confirmPassword.$error" role="alert" multiple="">
+                    <div class="my-message" ng-message="pwdCheck">Your passwords are differents</div>
+                    <div class="my-message" ng-message="required">Password field is required</div>
+                </div>
+            </md-input-container>
+            <md-button class="md-raised md-primary" ng-disabled="!Registration.$valid" ng-click="$ctrl.registration()">&nbsp Login &nbsp</md-button>
+        </form>
+    </md-card-content>
+</md-card>
+    <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2><span>Sign In</span></h2>
+            </div>
+        </md-toolbar>
+        <md-card-content>
+            <form name="Authorization">
+                <md-input-container class="md-block">
+                    <label>Email</label>
+                    <input type="email" name="email" ng-model="$ctrl.formData.authForm.email" placeholder="email" required=""/>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Password</label>
+                    <input type="password" name="password" ng-model="$ctrl.formData.authForm.password" placeholder="password">
+                </md-input-container>
+                <md-button class="md-raised md-primary" ng-disabled="!Authorization.$valid" ng-click="$ctrl.login()">&nbsp Sign In &nbsp</md-button>
+            </form>
+            <p>{{$ctrl.authMessage}}</p>
+        </md-card-content>
+    </md-card>
+</div>
