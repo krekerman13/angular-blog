@@ -1,0 +1,21 @@
+<md-dialog class="addDialog" aria-label="Add post">
+    <md-dialog-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add Post</h2>
+            </div>
+        </md-toolbar>
+        <md-input-container>
+            <label>Title</label>
+            <input ng-model="title">
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Text</label>
+            <textarea ng-model="text" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="close()" class="md-primary">Cancel</md-button>
+        <md-button ng-click="addPost()" class="md-primary">Create Post</md-button>
+    </md-dialog-actions>
+</md-dialog>

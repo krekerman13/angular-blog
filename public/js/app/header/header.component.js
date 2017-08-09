@@ -9,20 +9,19 @@ angular
 function headerController($scope, authService) {
     let $ctrl = this;
     $ctrl.authService = authService;
-    $ctrl.status = $ctrl.authService.status;
-    $ctrl.email = $ctrl.status.authorization ? authService.getProfileData().email : '';
+    $ctrl.authData = $ctrl.authService.authData;
 
     $ctrl.logout = logout;
 
 
-    $scope.$watch('$ctrl.status.authorization', checkAuth);
-
-    function checkAuth(newValue, oldValue, scope) {
-        "use strict";
-        if (newValue) {
-            $ctrl.email = authService.getProfileData().email;
-        }
-    }
+    // $scope.$watch('$ctrl.status.authorization', checkAuth);
+    //
+    // function checkAuth(newValue, oldValue, scope) {
+    //     "use strict";
+    //     if (newValue) {
+    //         $ctrl.email = authService.getProfileData().email;
+    //     }
+    // }
 
     function logout () {
         "use strict";

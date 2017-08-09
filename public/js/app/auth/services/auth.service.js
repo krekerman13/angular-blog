@@ -8,8 +8,9 @@ function authService($http, $q, $rootScope, localStorageService) {
     "use strict";
     var _self = this;
 
-    _self.status = {
+    _self.authData = {
         authorization: isAuth(),
+        email: getProfileData() ? getProfileData().email : '',
     };
 
     _self.registerUser = registerUser;
@@ -57,8 +58,8 @@ function authService($http, $q, $rootScope, localStorageService) {
                     email: res.config.data.email
                 }
                 setProfileData(data);
-                _self.status.authorization = true;
-                console.log(_self.status.authorization);
+                _self.authData.email = data.email;
+                _self.authData.authorization = true;
                 deffered.resolve();
             }, function (err) {
                 deffered.reject(err);
@@ -77,7 +78,7 @@ function authService($http, $q, $rootScope, localStorageService) {
             })
             .then(function (res) {
                     removeProfileData();
-                    _self.status.authorization = false;
+                    _self.authData.authorization = false;
                 },
                 function (err) {
                     console.log(err);

@@ -8,14 +8,14 @@
             <h2 flex>{{$ctrl.sss}}</h2>
 
 
-            <md-button ng-if="!$ctrl.status.authorization" ui-sref="auth" aria-label="Login">
+            <md-button ng-if="!$ctrl.authData.authorization" ui-sref="auth" aria-label="Login">
                 <span>Sign in</span>
                 <md-icon><i class="material-icons">account_circle</i></md-icon>
             </md-button>
 
-            <md-menu ng-if="$ctrl.status.authorization" md-offset="0 -7">
+            <md-menu ng-if="$ctrl.authData.authorization" md-offset="0 -7">
                 <md-button aria-label="Open demo menu" class="md-icon-button logout" ng-click="$mdMenu.open($event)">
-                    <span>{{$ctrl.email}}</span>
+                    <span>{{$ctrl.authData.email}}</span>
                     <md-icon><i class="material-icons">account_circle</i></md-icon>
                 </md-button>
                 <md-menu-content width="4">

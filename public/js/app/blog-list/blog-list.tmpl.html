@@ -1,0 +1,14 @@
+<div>
+    <md-card ng-repeat="post in $ctrl.posts">
+        <md-card-content>
+            <h2>{{post.title}}</h2>
+            <p>{{post.text}}</p>
+        </md-card-content>
+        <md-card-footer>
+            {{post.created}}
+        </md-card-footer>
+    </md-card>
+    <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.showAddDialog()" class="md-fab addPost md-primary md-fab-bottom-right" aria-label="Use Android">
+        <md-icon><i class="material-icons">add</i></md-icon>
+    </md-button>
+</div>
