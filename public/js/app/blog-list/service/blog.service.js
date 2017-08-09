@@ -8,6 +8,7 @@ function blogService($http, $q, authService) {
     _self.getAllPosts = getAllPosts;
     _self.getPost = getPost;
     _self.addPost = addPost;
+    _self.removePost = removePost;
 
     function getAllPosts() {
         "use strict";
@@ -37,6 +38,23 @@ function blogService($http, $q, authService) {
                 'Token': authService.getProfileData().token
             }
         }).then(function (resp) {
+            deffered.resolve(resp);
+        }, function (err) {
+            deffered.reject(err);
+        });
+        return deffered.promise;
+    }
+
+    function removePost(id) {
+        "use strict";
+        var deffered = $q.defer();
+        $http.delete('//localhost:3000/api/blog/'+id, {
+            data: {},
+            headers: {
+                'Token': authService.getProfileData().token,
+            }
+        }).then(function (resp) {
+            console.log(resp);
             deffered.resolve(resp);
         }, function (err) {
             deffered.reject(err);

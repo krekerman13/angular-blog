@@ -1,14 +1,32 @@
-<div>
-    <md-card ng-repeat="post in $ctrl.posts">
-        <md-card-content>
-            <h2>{{post.title}}</h2>
-            <p>{{post.text}}</p>
-        </md-card-content>
-        <md-card-footer>
-            {{post.created}}
-        </md-card-footer>
-    </md-card>
+<div >
+    <!--<md-card ng-repeat="post in $ctrl.posts">-->
+        <!--<md-card-content>-->
+            <!--<h2>{{post.title}}</h2>-->
+            <!--<p>{{post.text}}</p>-->
+        <!--</md-card-content>-->
+        <!--<md-card-footer>-->
+            <!--{{post.created}}-->
+        <!--</md-card-footer>-->
+        <!--<md-card-actions layout="row" layout-align="end center">-->
+            <!--<md-button>Remove</md-button>-->
+        <!--</md-card-actions>-->
+    <!--</md-card>-->
     <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.showAddDialog()" class="md-fab addPost md-primary md-fab-bottom-right" aria-label="Use Android">
         <md-icon><i class="material-icons">add</i></md-icon>
     </md-button>
+
+    <md-list class="blog">
+        <md-list-item class="md-3-line post" ng-repeat="post in $ctrl.posts">
+            <div class="md-list-item-text">
+                <h3>{{post.title}}</h3>
+                <h4>{{post.created}}</h4>
+                <p>{{post.text}}</p>
+            </div>
+            <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.deletePost(post.id, $index)">
+                <md-icon><i class="material-icons">delete</i></md-icon>
+            </md-button>
+            <md-divider></md-divider>
+        </md-list-item>
+    </md-list>
 </div>
+

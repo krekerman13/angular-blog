@@ -15,6 +15,7 @@ function blogListController($scope, blogService, $mdDialog, authService, $state)
 
     $ctrl.showAddDialog = showAddDialog;
     $ctrl.$onInit = $onInit;
+    $ctrl.deletePost = deletePost;
 
 
     function showAddDialog(env) {
@@ -44,7 +45,7 @@ function blogListController($scope, blogService, $mdDialog, authService, $state)
             }
 
             function addPost() {
-                blogService.addPost($ctrl.text, $ctrl.title)
+                blogService.addPost($ctrl.title, $ctrl.text)
                     .then(function (resp) {
                         console.log(resp);
                         $ctrl.posts.push(resp.data);
@@ -58,16 +59,24 @@ function blogListController($scope, blogService, $mdDialog, authService, $state)
 
     function $onInit() {
         "use strict";
-        // blogService.getAllPosts().then(function(resp) {
-        //     if(resp.status == 204) {
-        //         console.log("No content");
-        //     } else console.log(resp);
-        // });
-        //
-        // console.log($ctrl.posts);
-        console.log($ctrl.posts);
         $ctrl.authService = authService;
         $ctrl.status = $ctrl.authService.authData;
     }
+
+    function deletePost(id, $index) {
+        "use strict";
+        var confirm = $mdDialog.confirm()
+            .title('Would you like to delete this article?')
+            .ok('Ok')
+            .cancel('Cancel');
+
+        $mdDialog.show(confirm).then(function() {
+            blogService.removePost(id);
+            $ctrl.posts.splice($index, 1);
+            $mdDialog.hide();
+        }, function() {
+            $mdDialog.hide();
+        });
+    };
 
 }

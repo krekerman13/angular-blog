@@ -12,7 +12,7 @@ angular
                                 if (resp.status === 200) {
                                     return resp.data;
                                 } else {
-                                    return resp.status;
+                                    return [];
                                 }
                             });
                     }
