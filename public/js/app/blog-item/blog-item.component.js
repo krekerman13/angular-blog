@@ -9,7 +9,7 @@ angular
         }
     });
 
-function blogItemController($scope, blogService, authService, $state) {
+function blogItemController($scope, blogService, $mdDialog, authService, $state) {
     "use strict";
     var $ctrl = this;
 
@@ -17,14 +17,28 @@ function blogItemController($scope, blogService, authService, $state) {
     $ctrl.authService = authService;
     $ctrl.deletePost = deletePost;
 
+    this.selectedMode = 'md-fling';
+    this.selectedDirection = 'left';
 
     function $onInit() {
-        // $ctrl.post = post;
         console.log($ctrl.post);
+        console.log($ctrl.authService);
+        $ctrl.isOpen = false;
     }
 
     function deletePost(id) {
-        blogService.removePost(id)
-            .then($state.go('main'));
+        var confirm = $mdDialog.confirm()
+            .title('Would you like delete this article?')
+            .ok('Ok')
+            .cancel('Cancel');
+
+        $mdDialog.show(confirm).then(function () {
+            blogService.removePost(id)
+                .then(function () {
+                    $state.go('main');
+                }, function () {
+                    $mdDialog.hide();
+                });
+        })
     }
 }

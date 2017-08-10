@@ -10,10 +10,11 @@
         <form name="Registration">
             <md-input-container class="md-block">
                 <label>Login</label>
-                <input type="text" name="email" check-email="" ng-model="$ctrl.formData.registrationForm.email" placeholder="login" required=""/>
+                <input type="email" name="email" check-email="" ng-model="$ctrl.formData.registrationForm.email" placeholder="login" required=""/>
                 <div ng-messages="Registration.email.$error" role="alert" multiple="">
                     <div class="my-message" ng-message="required">You must supply a email.</div>
                     <div class="my-message" ng-message="emailExist">This address already exist</div>
+                    <div class="my-message" ng-message="email">Invalid email format</div>
                 </div>
             </md-input-container>
             <md-input-container class="md-block">

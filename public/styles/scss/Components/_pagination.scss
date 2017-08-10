@@ -1,0 +1,14 @@
+.paginationLeft,
+.paginationRight {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.paginationRight {
+  background: url('../img/arrow_right.png') no-repeat center;
+}
+
+.paginationLeft {
+  background: url('../img/arrow_left.png') no-repeat center;
+}

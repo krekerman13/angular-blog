@@ -20,7 +20,7 @@ let paths = {
             my: 'public/styles/scss/main.scss',
         },
         js: {
-            vendor: 'public/js/vendors/vendor.js',
+            vendor: 'public/js/vendors/*.js',
             my: 'public/js/app/**/*.js',
         },
         html: 'public/*.html',
@@ -31,13 +31,12 @@ let paths = {
         css: 'public/build/css',
         js: 'public/build/js',
         html: 'public/build/',
-        img: 'public/img/'
+        img: 'public/build/img/'
     },
 
     watch: {
         js: 'public/js/app/**/*.js',
         style: 'public/styles/**/*.scss',
-        img: 'public/img/**/*.*',
     },
 
     clean: 'public/build/'
@@ -99,9 +98,6 @@ gulp.task('watch', function(){
     });
     watch([paths.watch.js], function(event, cb) {
         gulp.start('js:build-app');
-    });
-    watch([paths.watch.img], function(event, cb) {
-        gulp.start('image:build');
     });
 });
 

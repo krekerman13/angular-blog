@@ -4,7 +4,7 @@ angular
     .service('authService', authService);
 
 
-function authService($http, $q, $rootScope, localStorageService) {
+function authService($http, $q, $state, localStorageService) {
     "use strict";
     var _self = this;
 
@@ -16,6 +16,7 @@ function authService($http, $q, $rootScope, localStorageService) {
     _self.registerUser = registerUser;
     _self.authUser = authUser;
     _self.logout = logout;
+    _self.checkEmail = checkEmail;
 
     _self.setProfileData = setProfileData;
     _self.getProfileData = getProfileData;
@@ -60,6 +61,7 @@ function authService($http, $q, $rootScope, localStorageService) {
                 setProfileData(data);
                 _self.authData.email = data.email;
                 _self.authData.authorization = true;
+                $state.go('main');
                 deffered.resolve();
             }, function (err) {
                 deffered.reject(err);
@@ -83,6 +85,24 @@ function authService($http, $q, $rootScope, localStorageService) {
                 function (err) {
                     console.log(err);
                 })
+    }
+
+    function checkEmail(email) {
+        var deffered = $q.defer();
+        $http
+            .get('//localhost:3000/api/auth/check/' + email)
+            .then(function (resp) {
+                deffered.resolve();
+            })
+            .catch(function (err) {
+                if (err.status != 406) {
+                    deffered.resolve(err.status);
+                } else {
+                    deffered.reject();
+                }
+            });
+
+        return deffered.promise;
     }
 
     function setProfileData(data) {

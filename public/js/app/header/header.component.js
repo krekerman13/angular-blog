@@ -13,17 +13,7 @@ function headerController($scope, authService) {
 
     $ctrl.logout = logout;
 
-
-    // $scope.$watch('$ctrl.status.authorization', checkAuth);
-    //
-    // function checkAuth(newValue, oldValue, scope) {
-    //     "use strict";
-    //     if (newValue) {
-    //         $ctrl.email = authService.getProfileData().email;
-    //     }
-    // }
-
-    function logout () {
+    function logout() {
         "use strict";
         authService.logout();
     }

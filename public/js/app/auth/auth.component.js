@@ -33,7 +33,6 @@ function authController($scope, authService, $state) {
         authService.authUser(email, password)
             .then(function() {
                 $ctrl.pending = false;
-                $state.go('main');
             })
             .catch(function (err) {
                 $ctrl.authMessage = err.data.message;
@@ -51,6 +50,6 @@ function authController($scope, authService, $state) {
         var email = $ctrl.formData.registrationForm.email,
             password = $ctrl.formData.registrationForm.password;
 
-        console.log(authService.registerUser(email, password));
+        (authService.registerUser(email, password));
     }
 }

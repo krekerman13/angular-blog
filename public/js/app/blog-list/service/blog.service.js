@@ -63,7 +63,6 @@ function blogService($http, $q, authService) {
                 'Token': authService.getProfileData().token,
             }
         }).then(function (resp) {
-            console.log(resp);
             deffered.resolve(resp);
         }, function (err) {
             deffered.reject(err);

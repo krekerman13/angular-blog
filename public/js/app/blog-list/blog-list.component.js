@@ -12,11 +12,13 @@ angular
 function blogListController($scope, blogService, $mdDialog, authService, $state) {
     var $ctrl = this;
 
-
     $ctrl.showAddDialog = showAddDialog;
     $ctrl.$onInit = $onInit;
     $ctrl.deletePost = deletePost;
+    $ctrl.currentPage = 1;
+    $ctrl.itemsPerPage = 3;
 
+    console.log($scope);
 
     function showAddDialog(env) {
         "use strict";
@@ -26,18 +28,21 @@ function blogListController($scope, blogService, $mdDialog, authService, $state)
             targetEvent: env,
             clickOutsideToClose: true,
             locals: {
-                posts: $ctrl.posts
+                posts: $ctrl.posts,
+                displayPosts: $ctrl.postsDisplay
             }
 
         }).then(function (result) {
             console.log(result);
-        })
+        });
 
-        function addDialogController($scope, $mdDialog, posts) {
+        function addDialogController($scope, $mdDialog, posts, displayPosts) {
             var $ctrl = $scope;
+
             $ctrl.close = close;
             $ctrl.addPost = addPost;
             $ctrl.posts = posts;
+            $ctrl.postsDisplay = displayPosts;
 
             function close() {
                 "use strict";
@@ -61,21 +66,25 @@ function blogListController($scope, blogService, $mdDialog, authService, $state)
         "use strict";
         $ctrl.authService = authService;
         $ctrl.status = $ctrl.authService.authData;
+        console.log($ctrl.posts);
     }
 
-    function deletePost(id, $index) {
+    function deletePost(id, $index, currentPage, pageSize) {
         "use strict";
-        var confirm = $mdDialog.confirm()
-            .title('Would you like to delete this article?')
-            .ok('Ok')
 
-            .cancel('Cancel');
+        var absoluteIndex = ($index + 1) + (currentPage - 1 ) * pageSize,
+            confirm = $mdDialog.confirm()
+                .title('Would you like to delete this article?')
+                .ok('Ok')
+                .cancel('Cancel');
 
-        $mdDialog.show(confirm).then(function() {
+
+        $mdDialog.show(confirm).then(function () {
             blogService.removePost(id);
-            $ctrl.posts.splice($index, 1);
+            console.log(absoluteIndex);
+            $ctrl.posts.splice(absoluteIndex, 1);
             $mdDialog.hide();
-        }, function() {
+        }, function () {
             $mdDialog.hide();
         });
     };

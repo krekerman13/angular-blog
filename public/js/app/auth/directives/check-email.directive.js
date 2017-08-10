@@ -1,6 +1,6 @@
 angular
     .module('auth')
-    .directive('checkEmail', function ($http, $q) {
+    .directive('checkEmail', function ($http, authService) {
         "use strict";
         return {
             require: 'ngModel',
@@ -13,14 +13,7 @@ angular
 
 
             function emailExist(modelValue, viewValue) {
-                return $http.get('//localhost:3000/api/auth/check/' + viewValue)
-                    .then(function (response) {
-                        if (response.data.status == 200) {
-                            return true;
-                        } else {
-                            $q.reject(response.data.status);
-                        }
-                    });
+                return authService.checkEmail(viewValue);
             }
         }
     })
