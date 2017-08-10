@@ -1,0 +1,20 @@
+<md-content flex layout-padding>
+    <md-fab-toolbar md-direction="left">
+        <md-fab-trigger class="align-with-text">
+            <md-button aria-label="menu" class="md-fab md-primary">
+                <md-icon><i class="material-icons">menu</i></md-icon>
+            </md-button>
+        </md-fab-trigger>
+
+        <md-toolbar>
+            <md-fab-actions class="md-toolbar-tools" ng-show="$ctrl.authService.authData.authorization">
+                <md-button aria-label="comment" class="md-icon-button" ng-click="$ctrl.deletePost($ctrl.post.id)">
+                    <md-icon><i class="material-icons">delete</i></md-icon>
+                </md-button>
+            </md-fab-actions>
+        </md-toolbar>
+    </md-fab-toolbar>
+    <h1>{{$ctrl.post.title}}</h1>
+    <p>{{$ctrl.post.text}}</p>
+    <p>{{$ctrl.post.created | date: 'medium'}}</p>
+</md-content>

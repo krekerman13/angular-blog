@@ -1,5 +1,7 @@
 node_modules
 config/default.json
+public/build
+public/bower_components
 .idea
 .idea/
 

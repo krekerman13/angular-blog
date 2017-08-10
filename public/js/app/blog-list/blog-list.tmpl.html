@@ -16,7 +16,7 @@
     </md-button>
 
     <md-list class="blog">
-        <md-list-item class="md-3-line post" ng-repeat="post in $ctrl.posts">
+        <md-list-item class="md-3-line post" ng-repeat="post in $ctrl.posts" ui-sref="blogItem({itemId: post.id})">
             <div class="md-list-item-text">
                 <h3>{{post.title}}</h3>
                 <h4>{{post.created}}</h4>

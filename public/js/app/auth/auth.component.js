@@ -15,12 +15,13 @@ function authController($scope, authService, $state) {
     $ctrl.registration = registration;
     $ctrl.authMessage = '';
     $ctrl.regMessage = '';
+    $ctrl.pending = false;
+
 
     console.log($ctrl);
 
     function onInit() {
         "use strict";
-        console.log(authService.status);
     }
 
     function login() {
@@ -28,12 +29,15 @@ function authController($scope, authService, $state) {
         var email = $ctrl.formData.authForm.email,
             password = $ctrl.formData.authForm.password;
 
+        $ctrl.pending = true;
         authService.authUser(email, password)
             .then(function() {
+                $ctrl.pending = false;
                 $state.go('main');
             })
             .catch(function (err) {
                 $ctrl.authMessage = err.data.message;
+                $ctrl.pending = false;
             });
     }
 

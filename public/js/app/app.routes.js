@@ -23,17 +23,22 @@ angular
                 url: '/auth',
                 component: 'auth',
             },
-            // blogState = {
-            //     name: 'blog',
-            //     url: '/blog/{itemId}',
-            //     component: 'blogItem',
-            //     resolve: {
-            //         post: function(BlogService, $transition$) {
-            //             console.log($transition$.params().itemId);
-            //             return BlogService.getPost($transition$.params().itemId);
-            //         }
-            //     }
-            // },
+            blogState = {
+                name: 'blogItem',
+                url: '/blog/{itemId}',
+                component: 'blogItem',
+                resolve: {
+                    post: function(blogService, $transition$) {
+                        return blogService.getPost($transition$.params().itemId)
+                            .then(function (resp) {
+                                return resp.data;
+                            })
+                            .catch(function (err) {
+                                return err;
+                            });
+                    }
+                }
+            },
             state404 = {
                 name: '404',
                 url: '/404',
@@ -42,7 +47,7 @@ angular
 
         $urlRouterProvider.otherwise('/');
         $stateProvider.state(mainState);
-        // $stateProvider.state(blogState);
+        $stateProvider.state(blogState);
         $stateProvider.state(state404);
         $stateProvider.state(auth);
 

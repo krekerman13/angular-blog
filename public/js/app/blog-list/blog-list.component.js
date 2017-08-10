@@ -68,6 +68,7 @@ function blogListController($scope, blogService, $mdDialog, authService, $state)
         var confirm = $mdDialog.confirm()
             .title('Would you like to delete this article?')
             .ok('Ok')
+
             .cancel('Cancel');
 
         $mdDialog.show(confirm).then(function() {

@@ -23,8 +23,17 @@ function blogService($http, $q, authService) {
         return deffered.promise;
     }
 
-    function getPost() {
+    function getPost(id) {
+        "use strict";
+        var deffered = $q.defer();
+        $http.get('//localhost:3000/api/blog/' + id)
+            .then(function(resp) {
+                deffered.resolve(resp);
+            }, function(err) {
+                deffered.reject(err)
+            });
 
+        return deffered.promise;
     }
 
     function addPost(title, text) {

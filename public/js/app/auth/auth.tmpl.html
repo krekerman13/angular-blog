@@ -47,11 +47,11 @@
             <form name="Authorization">
                 <md-input-container class="md-block">
                     <label>Email</label>
-                    <input type="email" name="email" ng-model="$ctrl.formData.authForm.email" placeholder="email" required=""/>
+                    <input type="email" ng-disabled="$ctrl.pending" name="email" ng-model="$ctrl.formData.authForm.email" placeholder="email" required=""/>
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Password</label>
-                    <input type="password" name="password" ng-model="$ctrl.formData.authForm.password" placeholder="password">
+                    <input type="password" ng-disabled="$ctrl.pending" name="password" ng-model="$ctrl.formData.authForm.password" placeholder="password">
                 </md-input-container>
                 <md-button class="md-raised md-primary" ng-disabled="!Authorization.$valid" ng-click="$ctrl.login()">&nbsp Sign In &nbsp</md-button>
             </form>
