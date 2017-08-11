@@ -6,7 +6,7 @@ angular
         controller: authController,
     });
 
-function authController($scope, authService, $state) {
+function authController(authService, $mdDialog) {
     var $ctrl = this;
 
     $ctrl.$onInit = onInit;
@@ -26,7 +26,7 @@ function authController($scope, authService, $state) {
 
     function login() {
         "use strict";
-        var email = $ctrl.formData.authForm.email,
+        var email = $ctrl.formData.authForm.email ? $ctrl.formData.authForm.email: '',
             password = $ctrl.formData.authForm.password;
 
         $ctrl.pending = true;
@@ -37,6 +37,13 @@ function authController($scope, authService, $state) {
             .catch(function (err) {
                 $ctrl.authMessage = err.data.message;
                 $ctrl.pending = false;
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Authentication Error')
+                        .textContent($ctrl.authMessage)
+                        .ok('Ok')
+                );
             });
     }
 

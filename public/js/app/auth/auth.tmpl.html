@@ -27,14 +27,14 @@
                 </div>
             </md-input-container>
             <md-input-container class="md-block">
-                <label>Password</label>
+                <label>Confirm Password</label>
                 <input type="password" name="confirmPassword" ng-model="$ctrl.formData.registrationForm.confirmPassword" pwd-check="$ctrl.formData.registrationForm.password" placeholder="Repeat password" required="" md-minlength="8" md-maxlength="40"/>
                 <div ng-messages="Registration.confirmPassword.$error" role="alert" multiple="">
                     <div class="my-message" ng-message="pwdCheck">Your passwords are differents</div>
                     <div class="my-message" ng-message="required">Password field is required</div>
                 </div>
             </md-input-container>
-            <md-button class="md-raised md-primary" ng-disabled="!Registration.$valid" ng-click="$ctrl.registration()">&nbsp Login &nbsp</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="!Registration.$valid" ng-click="$ctrl.registration()">&nbsp Sign Up&nbsp</md-button>
         </form>
     </md-card-content>
 </md-card>
@@ -44,19 +44,26 @@
                 <h2><span>Sign In</span></h2>
             </div>
         </md-toolbar>
-        <md-card-content>
+        <md-card-content class="authForm">
             <form name="Authorization">
                 <md-input-container class="md-block">
                     <label>Email</label>
-                    <input type="email" ng-disabled="$ctrl.pending" name="email" ng-model="$ctrl.formData.authForm.email" placeholder="email" required=""/>
+                    <md-icon><i class="material-icons">email</i></md-icon>
+                    <input required type="email" ng-disabled="$ctrl.pending" name="email" ng-model="$ctrl.formData.authForm.email" placeholder="email"/>
+                    <div ng-messages="Authorization.email.$error" role="alert" multiple="">
+                        <div class="my-message" ng-message="required">Email is required</div>
+                    </div>
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Password</label>
-                    <input type="password" ng-disabled="$ctrl.pending" name="password" ng-model="$ctrl.formData.authForm.password" placeholder="password">
+                    <md-icon><i class="material-icons">security</i></md-icon>
+                    <input required type="password" ng-disabled="$ctrl.pending" name="password" ng-model="$ctrl.formData.authForm.password" placeholder="password">
+                    <div ng-messages="Authorization.password.$error" role="alert" multiple="">
+                        <div class="my-message" ng-message="required">Password is required</div>
+                    </div>
                 </md-input-container>
                 <md-button class="md-raised md-primary" ng-disabled="!Authorization.$valid" ng-click="$ctrl.login()">&nbsp Sign In &nbsp</md-button>
             </form>
-            <p>{{$ctrl.authMessage}}</p>
         </md-card-content>
     </md-card>
 </div>

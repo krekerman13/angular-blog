@@ -2,9 +2,22 @@
     <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.showAddDialog()" class="md-fab addPost md-primary md-fab-bottom-right" aria-label="Use Android">
         <md-icon><i class="material-icons">add</i></md-icon>
     </md-button>
+    <div layout="row" class="queryPanel">
+        <md-input-container>
+            <label>Filter by</label>
+            <md-select ng-model="$ctrl.selectedFilter">
+                <md-optgroup label="Filters">
+                    <md-option selected="" value="title">By Title</md-option>
+                    <md-option value="-created">By Date</md-option>
+                </md-optgroup>
+            </md-select>
+        </md-input-container>
+    </div>
+
+    <dir-pagination-controls pagination-id="blog"></dir-pagination-controls>
 
     <md-list class="blog">
-        <md-list-item class="md-3-line post" dir-paginate="post in $ctrl.posts | itemsPerPage: $ctrl.itemsPerPage" pagination-id="branch" current-page="$ctrl.currentPage"   ui-sref="blogItem({itemId: post.id})">
+        <md-list-item class="md-3-line post" dir-paginate="post in $ctrl.posts | orderBy: $ctrl.selectedFilter | itemsPerPage: $ctrl.itemsPerPage" pagination-id="blog" current-page="$ctrl.currentPage"   ui-sref="blogItem({itemId: post.id})">
             <div class="md-list-item-text">
                 <h3>{{post.title}}</h3>
                 <h4>{{post.created | date: 'medium'}}</h4>
@@ -16,7 +29,5 @@
             <md-divider></md-divider>
         </md-list-item>
     </md-list>
-
-    <dir-pagination-controls pagination-id="branch"></dir-pagination-controls>
 </div>
 

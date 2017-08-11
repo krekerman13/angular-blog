@@ -72,7 +72,7 @@ function blogListController($scope, blogService, $mdDialog, authService, $state)
     function deletePost(id, $index, currentPage, pageSize) {
         "use strict";
 
-        var absoluteIndex = ($index + 1) + (currentPage - 1 ) * pageSize,
+        var absoluteIndex = ($index) + (currentPage - 1 ) * pageSize,
             confirm = $mdDialog.confirm()
                 .title('Would you like to delete this article?')
                 .ok('Ok')
