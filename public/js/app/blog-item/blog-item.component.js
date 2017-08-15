@@ -17,8 +17,8 @@ function blogItemController($scope, blogService, $mdDialog, authService, $state)
     $ctrl.authService = authService;
     $ctrl.deletePost = deletePost;
 
-    this.selectedMode = 'md-fling';
-    this.selectedDirection = 'left';
+    $ctrl.selectedMode = 'md-fling';
+    $ctrl.selectedDirection = 'left';
 
     function $onInit() {
         console.log($ctrl.post);

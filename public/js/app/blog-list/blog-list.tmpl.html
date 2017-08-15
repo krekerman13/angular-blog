@@ -3,15 +3,35 @@
         <md-icon><i class="material-icons">add</i></md-icon>
     </md-button>
     <div layout="row" class="queryPanel">
-        <md-input-container>
-            <label>Filter by</label>
-            <md-select ng-model="$ctrl.selectedFilter">
-                <md-optgroup label="Filters">
-                    <md-option selected="" value="title">By Title</md-option>
-                    <md-option value="-created">By Date</md-option>
-                </md-optgroup>
-            </md-select>
-        </md-input-container>
+        <div class="search">
+            <span>Search {{$ctrl.typeOfSearch}}</span>
+            <md-switch ng-model="$ctrl.typeOfSearch" aria-label="Switch 2" ng-true-value="'byTitle'" ng-false-value="'byText'" class="md-warn">
+            </md-switch>
+
+            <md-autocomplete placeholder="Search..." md-no-cache="true" md-selected-item="selectedItem" md-search-text="searchText" md-items="post in $ctrl.getMatches(searchText)" md-item-text="post.title">
+                <md-item-template>
+                    <span ui-sref="blogItem({itemId: post.id})" md-highlight-text="searchText" ng-if="$ctrl.typeOfSearch == 'byTitle'">{{post.title}}</span>
+                    <span ui-sref="blogItem({itemId: post.id})" md-highlight-text="searchText" ng-if="$ctrl.typeOfSearch == 'byText'">{{post.text}}</span>
+                </md-item-template>
+                <md-not-found>
+                    No matches found.
+                </md-not-found>
+            </md-autocomplete>
+        </div>
+
+        <div class="sortBy">
+            <md-input-container>
+                <label>Sort by</label>
+                <md-select ng-model="$ctrl.selectedFilter">
+                    <md-optgroup label="Filters">
+                        <md-option selected="" value="-created">New</md-option>
+                        <md-option value="created">Old</md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+        </div>
+
+
     </div>
 
     <dir-pagination-controls pagination-id="blog"></dir-pagination-controls>
@@ -19,11 +39,11 @@
     <md-list class="blog">
         <md-list-item class="md-3-line post" dir-paginate="post in $ctrl.posts | orderBy: $ctrl.selectedFilter | itemsPerPage: $ctrl.itemsPerPage" pagination-id="blog" current-page="$ctrl.currentPage"   ui-sref="blogItem({itemId: post.id})">
             <div class="md-list-item-text">
-                <h3>{{post.title}}</h3>
+                <h2>{{post.title}}</h2>
                 <h4>{{post.created | date: 'medium'}}</h4>
                 <p>{{post.text}}</p>
             </div>
-            <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.deletePost(post.id, $index, $ctrl.currentPage, $ctrl.itemsPerPage)">
+            <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.deletePost(post.id, post, $ctrl.currentPage, $ctrl.itemsPerPage)">
                 <md-icon><i class="material-icons">delete</i></md-icon>
             </md-button>
             <md-divider></md-divider>

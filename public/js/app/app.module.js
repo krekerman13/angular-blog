@@ -8,5 +8,5 @@ var app = angular
             .module('blog', ['ui.router', 'ngMessages', 'LocalStorageModule', 'angularUtils.directives.dirPagination', 'ngMaterial', 'auth'])
             .run(function () {
 
-            });
+            })
 
