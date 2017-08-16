@@ -1,4 +1,6 @@
 (function () {
+    "use strict";
+
     angular
         .module('blog')
         .component('notFound', {
@@ -7,6 +9,6 @@
         })
 
     function controller() {
-        console.log(this);
+
     }
 })();

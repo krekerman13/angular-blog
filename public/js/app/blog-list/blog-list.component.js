@@ -33,7 +33,7 @@
                     return $ctrl.typeOfSearch === 'byText' ? post.text.toUpperCase().indexOf(searchText.toUpperCase()) !== -1 : post.title.toUpperCase().indexOf(searchText.toUpperCase()) !== -1;
                 });
                 deferred.resolve(posts);
-            }, 1500);
+            }, 500);
 
             return deferred.promise;
         }

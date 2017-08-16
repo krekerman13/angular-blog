@@ -13,7 +13,7 @@
             'auth'
         ])
         .constant('urls', (function () {
-            var host = '//192.168.1.47:3000';
+            var host = '//localhost:3000';
             var urls = {
                 signIn: host + '/api/auth/signin',
                 registration: host + '/api/auth/signup',
@@ -23,6 +23,7 @@
             }
             return urls;
         })())
+
         .run(function () {
 
         });
