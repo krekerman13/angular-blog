@@ -3,13 +3,13 @@ const gulp = require('gulp'),
     concat = require('gulp-concat'),
     prefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
+    ngAnnotate = require('gulp-ng-annotate'),
     sass = require('gulp-sass'),
     sourcemaps = require('gulp-sourcemaps'),
     rigger = require('gulp-rigger'),
     cssmin = require('gulp-minify-css'),
     imagemin = require('gulp-imagemin'),
     pngquant = require('imagemin-pngquant'),
-    minifyJS = require('gulp-minify'),
     rimraf = require('rimraf');
 
 
@@ -55,6 +55,8 @@ gulp.task('js:build-app', function () {
     gulp.src(paths.src.js.my)
         .pipe(sourcemaps.init())
         .pipe(concat('app.min.js'))
+        .pipe(ngAnnotate())
+        .pipe(uglify({mangle: false}))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.build.js))
 });

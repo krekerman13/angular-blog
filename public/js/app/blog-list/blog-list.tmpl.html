@@ -1,17 +1,28 @@
 <div class="blogList">
-    <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.showAddDialog()" class="md-fab addPost md-primary md-fab-bottom-right" aria-label="Use Android">
+    <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.showAddDialog()" class="md-fab addPost md-primary md-fab-bottom-right">
         <md-icon><i class="material-icons">add</i></md-icon>
     </md-button>
     <div layout="row" class="queryPanel">
         <div class="search">
             <span>Search {{$ctrl.typeOfSearch}}</span>
-            <md-switch ng-model="$ctrl.typeOfSearch" aria-label="Switch 2" ng-true-value="'byTitle'" ng-false-value="'byText'" class="md-warn">
+            <md-switch
+                    ng-model="$ctrl.typeOfSearch"
+                    aria-label="Switch 2"
+                    ng-true-value="'byTitle'"
+                    ng-false-value="'byText'"
+                    class="md-warn">
             </md-switch>
 
-            <md-autocomplete placeholder="Search..." md-no-cache="true" md-selected-item="selectedItem" md-search-text="searchText" md-items="post in $ctrl.getMatches(searchText)" md-item-text="post.title">
+            <md-autocomplete
+                    placeholder="Search..."
+                    md-no-cache="true"
+                    md-selected-item="selectedItem"
+                    md-search-text="searchText"
+                    md-items="post in $ctrl.getMatches(searchText)"
+                    md-item-text="post.title">
                 <md-item-template>
-                    <span ui-sref="blogItem({itemId: post.id})" md-highlight-text="searchText" ng-if="$ctrl.typeOfSearch == 'byTitle'">{{post.title}}</span>
-                    <span ui-sref="blogItem({itemId: post.id})" md-highlight-text="searchText" ng-if="$ctrl.typeOfSearch == 'byText'">{{post.text}}</span>
+                    <p ui-sref="blogItem({itemId: post.id})" md-highlight-text="searchText" ng-if="$ctrl.typeOfSearch == 'byTitle'">{{post.title}}</p>
+                    <p ui-sref="blogItem({itemId: post.id})" md-highlight-text="searchText" ng-if="$ctrl.typeOfSearch == 'byText'">{{post.text}}</p>
                 </md-item-template>
                 <md-not-found>
                     No matches found.
@@ -35,15 +46,22 @@
     </div>
 
     <dir-pagination-controls pagination-id="blog"></dir-pagination-controls>
-
+    <h1 ng-if="$ctrl.posts.length == 0">Blog is empty</h1>
     <md-list class="blog">
-        <md-list-item class="md-3-line post" dir-paginate="post in $ctrl.posts | orderBy: $ctrl.selectedFilter | itemsPerPage: $ctrl.itemsPerPage" pagination-id="blog" current-page="$ctrl.currentPage"   ui-sref="blogItem({itemId: post.id})">
+        <md-list-item
+                ng-class="{'pending': $ctrl.pending === $index}"
+                class="md-3-line post"
+                dir-paginate="post in $ctrl.posts | orderBy: $ctrl.selectedFilter | itemsPerPage: $ctrl.itemsPerPage"
+                pagination-id="blog"
+                current-page="$ctrl.currentPage"
+                ui-sref="blogItem({itemId: post.id})">
             <div class="md-list-item-text">
                 <h2>{{post.title}}</h2>
+                <h2>{{$ctrl.pending}}</h2>
                 <h4>{{post.created | date: 'medium'}}</h4>
                 <p>{{post.text}}</p>
             </div>
-            <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.deletePost(post.id, post, $ctrl.currentPage, $ctrl.itemsPerPage)">
+            <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.deletePost(post.id, $index)">
                 <md-icon><i class="material-icons">delete</i></md-icon>
             </md-button>
             <md-divider></md-divider>

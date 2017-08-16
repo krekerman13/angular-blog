@@ -1,12 +1,30 @@
-/**
- * Created by krek on 01.08.17.
- */
-angular
-    .module('auth', []);
+(function () {
+    "use strict";
+    angular
+        .module('auth', []);
 
-var app = angular
-            .module('blog', ['ui.router', 'ngMessages', 'LocalStorageModule', 'angularUtils.directives.dirPagination', 'ngMaterial', 'auth'])
-            .run(function () {
+    angular
+        .module('blog', [
+            'ui.router',
+            'ngMessages',
+            'LocalStorageModule',
+            'angularUtils.directives.dirPagination',
+            'ngMaterial',
+            'auth'
+        ])
+        .constant('urls', (function () {
+            var host = '//192.168.1.47:3000';
+            var urls = {
+                signIn: host + '/api/auth/signin',
+                registration: host + '/api/auth/signup',
+                checkEmail: host + '/api/auth/check/',
+                logout: host + '/api/auth/logout',
+                blog: host + '/api/blog/'
+            }
+            return urls;
+        })())
+        .run(function () {
 
-            })
+        });
+})();
 

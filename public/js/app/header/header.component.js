@@ -1,21 +1,25 @@
-angular
-    .module('blog')
+(function () {
+    "use strict";
 
-    .component('blogHeader', {
-        templateUrl: './js/app/header/header.tmpl.html',
-        controller: headerController
-    });
+    angular
+        .module('blog')
 
-function headerController($scope, authService) {
-    let $ctrl = this;
-    $ctrl.authService = authService;
-    $ctrl.authData = $ctrl.authService.authData;
+        .component('blogHeader', {
+            templateUrl: './js/app/header/header.tmpl.html',
+            controller: headerController
+        });
 
-    $ctrl.logout = logout;
+    function headerController(authService) {
+        var $ctrl = this;
+        $ctrl.authService = authService;
+        $ctrl.authData = $ctrl.authService.authData;
 
-    function logout() {
-        "use strict";
-        authService.logout();
+        $ctrl.logout = logout;
+
+        function logout() {
+            "use strict";
+            authService.logout();
+        }
     }
-}
+})();
 
