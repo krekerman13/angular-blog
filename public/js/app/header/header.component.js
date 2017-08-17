@@ -17,7 +17,6 @@
         $ctrl.logout = logout;
 
         function logout() {
-            "use strict";
             authService.logout();
         }
     }

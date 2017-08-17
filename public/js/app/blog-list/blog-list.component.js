@@ -62,12 +62,10 @@
                 .title('Would you like to delete this article?')
                 .ok('Ok')
                 .cancel('Cancel');
-            console.log(this);
 
             $mdDialog.show(confirm).then(
                 function () {
                     $ctrl.pending = $index;
-                    console.log($ctrl.pending);
                     blogService.removePost(id)
                         .then(function() {
                             $ctrl.pending = false;
