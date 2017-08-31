@@ -22,6 +22,7 @@
                 blog: host + '/api/blog/'
             }
             return urls;
+
         })())
 
         .run(function () {
