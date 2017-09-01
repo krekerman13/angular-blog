@@ -1,26 +1,31 @@
-function addDialogController($scope, $mdDialog, posts, displayPosts, blogService) {
+function addDialogController($scope, $mdDialog, posts, displayPosts, blogService, pendingService) {
     'use strict';
 
-    var $ctrl = $scope;
+    const $ctrl = $scope;
 
     $ctrl.addPost = addPost;
     $ctrl.posts = posts;
     $ctrl.postsDisplay = displayPosts;
     $ctrl.close = close;
+    $ctrl.pendingService = pendingService;
+
 
     function close() {
         $mdDialog.hide();
     }
 
     function addPost() {
-        $ctrl.pending = true;
-        blogService.addPost($ctrl.title, $ctrl.text)
-            .then(function (resp) {
+        let post = {
+            title: $ctrl.title,
+            text: $ctrl.text
+        };
+
+
+        blogService.addPost(post)
+            .then((resp) => {
                 $ctrl.posts.push(resp.data);
-                $ctrl.pending = false;
                 close();
-            }).catch(function (err) {
-            console.log(err);
-        });
+            })
+            .catch((err) => console.log(err));
     }
 }

@@ -3,7 +3,7 @@
 
     angular
         .module('auth')
-        .directive('pwdCheck', function() {
+        .directive('pwdCheck', () => {
             return {
                 require: 'ngModel',
                 restrict: 'A',

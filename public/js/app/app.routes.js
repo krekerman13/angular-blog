@@ -4,21 +4,16 @@
     angular
         .module('blog')
         .config(function ($stateProvider, $urlRouterProvider) {
-            var mainState = {
+            const mainState = {
                     name: 'main',
                     url: '/',
                     component: 'blogList',
                     resolve: {
-                        posts: function (blogService) {
-                            return blogService.getAllPosts()
-                                .then(function (resp) {
-                                    if (resp.status === 200) {
-                                        return resp.data;
-                                    } else {
-                                        return [];
-                                    }
-                                });
-                        }
+                        posts: (blogService) => blogService.getAllPosts()
+                            .then((resp) => resp.status === 200
+                                ? resp.data
+                                : [])
+
                     }
                 },
                 auth = {
@@ -31,14 +26,10 @@
                     url: '/blog/{itemId}',
                     component: 'blogItem',
                     resolve: {
-                        post: function (blogService, $transition$) {
-                            return blogService.getPost($transition$.params().itemId)
-                                .then(function (resp) {
-                                    return resp.data
-                                }).catch(function() {
-                                    return false;
-                                });
-                        }
+                        post: (blogService, $transition$) => blogService.getPost($transition$.params().itemId)
+                            .then((resp) => resp.data)
+                            .catch(() => false)
+
                     }
                 },
                 state404 = {

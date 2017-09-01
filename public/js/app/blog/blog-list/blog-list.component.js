@@ -4,7 +4,7 @@
     angular
         .module('blog')
         .component('blogList', {
-            templateUrl: './js/app/blog-list/blog-list.tmpl.html',
+            templateUrl: './js/app/blog/blog-list/blog-list.tmpl.html',
             controller: blogListController,
             bindings: {
                 posts: '<'
@@ -13,7 +13,7 @@
 
 
     function blogListController($q, $timeout, blogService, $mdDialog, authService) {
-        var $ctrl = this;
+        const $ctrl = this;
 
         $ctrl.showAddDialog = showAddDialog;
         $ctrl.$onInit = $onInit;
@@ -22,16 +22,17 @@
         $ctrl.itemsPerPage = 3;
         $ctrl.getMatches = getMatches;
         $ctrl.typeOfSearch = 'byTitle';
-        $ctrl.pending = false;
-
+        $ctrl.pendingIndex = -1;
 
         function getMatches(searchText) {
-            var deferred = $q.defer();
+            let deferred = $q.defer();
 
-            $timeout(function () {
-                var posts = $ctrl.posts.filter(function (post) {
-                    return $ctrl.typeOfSearch === 'byText' ? post.text.toUpperCase().indexOf(searchText.toUpperCase()) !== -1 : post.title.toUpperCase().indexOf(searchText.toUpperCase()) !== -1;
-                });
+            $timeout(() => {
+                let posts = $ctrl.posts.filter((post) =>
+                    $ctrl.typeOfSearch === 'byText'
+                        ? post.text.toUpperCase().indexOf(searchText.toUpperCase()) !== -1
+                        : post.title.toUpperCase().indexOf(searchText.toUpperCase()) !== -1
+                );
                 deferred.resolve(posts);
             }, 500);
 
@@ -41,7 +42,7 @@
         function showAddDialog(env) {
             $mdDialog.show({
                 controller: addDialogController,
-                templateUrl: './js/app/blog-list/directives/add-dialog.tmpl.html',
+                templateUrl: './js/app/blog/blog-list/directives/add-dialog.tmpl.html',
                 targetEvent: env,
                 clickOutsideToClose: true,
                 locals: {
@@ -58,25 +59,24 @@
         }
 
         function deletePost(id, $index) {
-            var confirm = $mdDialog.confirm()
+            let confirm = $mdDialog.confirm()
                 .title('Would you like to delete this article?')
                 .ok('Ok')
                 .cancel('Cancel');
 
-            $mdDialog.show(confirm).then(
-                function () {
-                    $ctrl.pending = $index;
+            $mdDialog.show(confirm)
+                .then(() => {
+                    $ctrl.pendingIndex = $index;
                     blogService.removePost(id)
-                        .then(function() {
-                            $ctrl.pending = false;
+                        .then(() => {
                             _.remove($ctrl.posts, {'id': id});
+                            $ctrl.pendingIndex = -1;
                         });
                     $mdDialog.hide();
-                },
-                function () {
-                    $ctrl.pending = false;
+                }, () => {
+                    $ctrl.pendingIndex = -1;
                     $mdDialog.hide();
                 });
-        };
+        }
     }
 }());

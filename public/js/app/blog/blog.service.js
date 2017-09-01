@@ -5,8 +5,8 @@
         .module('blog')
         .service('blogService', blogService);
 
-    function blogService($http, $q, authService, urls) {
-        var _self = this;
+    function blogService($q, authService, urls, requestService, $state, pendingService) {
+        const _self = this;
 
         _self.getAllPosts = getAllPosts;
         _self.getPost = getPost;
@@ -15,62 +15,59 @@
 
         function getAllPosts() {
             "use strict";
-            var deffered = $q.defer();
-            $http.get(urls.blog)
-                .then(function (resp) {
-                    "use strict";
-                    deffered.resolve(resp);
-                }, function (err) {
-                    deffered.reject(err);
-                });
+            let deffered = $q.defer();
+
+            requestService.makeRequest(urls.blog)
+                .then((resp) => deffered.resolve(resp))
+                .catch((err) => deffered.reject(err));
+
             return deffered.promise;
         }
 
         function getPost(id) {
             "use strict";
-            var deffered = $q.defer();
-            $http.get(urls.blog + id)
-                .then(function (resp) {
-                    deffered.resolve(resp);
-                }, function (err) {
+            let deffered = $q.defer();
+
+            requestService.makeRequest(urls.blog + id)
+                .then((resp) => deffered.resolve(resp))
+                .catch((err) => $state.go('404'));
+
+            return deffered.promise;
+        }
+
+        function addPost(post) {
+            "use strict";
+            let deffered = $q.defer(),
+                headers = {
+                    'Token': authService.getProfileData().token,
+                };
+
+            pendingService.pending = true;
+
+            requestService.makeRequest(urls.blog, 'post', headers, post)
+                .then((resp) => {
+                    pendingService.pending = false;
+                    deffered.resolve(resp)
+                })
+                .catch((err) => {
+                    pendingService.pending = false;
                     deffered.reject(err)
                 });
 
             return deffered.promise;
         }
 
-        function addPost(title, text) {
-            "use strict";
-            var deffered = $q.defer();
-            $http.post(urls.blog, {
-                    title: title,
-                    text: text,
-                },
-                {
-                    headers: {
-                        'Token': authService.getProfileData().token
-                    }
-                }).then(function (resp) {
-                deffered.resolve(resp);
-            }, function (err) {
-                deffered.reject(err);
-            });
-            return deffered.promise;
-        }
-
         function removePost(id) {
             "use strict";
-            var deffered = $q.defer();
-            $http.delete(urls.blog + id, {
-                data: {},
-                headers: {
-                    'Token': authService.getProfileData().token,
-                }
-            }).then(function (resp) {
-                deffered.resolve(resp);
-            }, function (err) {
-                deffered.reject(err);
-            });
+            let deffered = $q.defer(),
+                headers = {
+                'Token': authService.getProfileData().token,
+            };
+
+            requestService.makeRequest(urls.blog + id, 'delete', headers)
+                .then((resp) => deffered.resolve(resp))
+                .catch((err) => deffered.reject(err));
+
             return deffered.promise;
         }
     }

@@ -10,9 +10,9 @@
         });
 
     function headerController(authService) {
-        var $ctrl = this;
-        $ctrl.authService = authService;
-        $ctrl.authData = $ctrl.authService.authData;
+        const $ctrl = this;
+
+        $ctrl.authData = authService.authData;
 
         $ctrl.logout = logout;
 

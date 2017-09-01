@@ -10,6 +10,7 @@ const gulp = require('gulp'),
     cssmin = require('gulp-minify-css'),
     imagemin = require('gulp-imagemin'),
     pngquant = require('imagemin-pngquant'),
+    babel = require('gulp-babel'),
     rimraf = require('rimraf');
 
 
@@ -55,6 +56,7 @@ gulp.task('js:build-app', function () {
     gulp.src(paths.src.js.my)
         .pipe(sourcemaps.init())
         .pipe(concat('app.min.js'))
+        .pipe(babel({presets: ['es2015']}))
         .pipe(ngAnnotate())
         .pipe(uglify({mangle: false}))
         .pipe(sourcemaps.write())

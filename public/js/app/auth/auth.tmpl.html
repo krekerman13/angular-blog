@@ -14,6 +14,7 @@
                         type="email"
                         name="email"
                         check-email=""
+                        ng-disabled="$ctrl.pendingService.pending"
                         ng-model="$ctrl.formData.registrationForm.email"
                         placeholder="login"
                         required=""/>
@@ -31,6 +32,7 @@
                         ng-model="$ctrl.formData.registrationForm.password"
                         placeholder="password"
                         required=""
+                        ng-disabled="$ctrl.pendingService.pending"
                         ng-minlength="8"
                         ng-maxlength="40"
                         md-minlength="8"
@@ -44,6 +46,7 @@
             <md-input-container class="md-block">
                 <label>Confirm Password</label>
                 <input
+                        ng-disabled="$ctrl.pendingService.pending"
                         type="password"
                         name="confirmPassword"
                         ng-model="$ctrl.formData.registrationForm.confirmPassword"
@@ -57,7 +60,7 @@
                     <div class="my-message" ng-message="required">Password field is required</div>
                 </div>
             </md-input-container>
-            <md-button class="md-raised md-primary" ng-disabled="!Registration.$valid" ng-click="$ctrl.registration()">&nbsp Sign Up&nbsp</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="!Registration.$valid || $ctrl.pendingService.pending" ng-click="$ctrl.registration()">&nbsp Sign Up&nbsp</md-button>
         </form>
     </md-card-content>
 </md-card>
@@ -75,7 +78,7 @@
                     <input
                             required
                             type="email"
-                            ng-disabled="$ctrl.pending"
+                            ng-disabled="$ctrl.pendingService.pending"
                             name="email"
                             ng-model="$ctrl.formData.authForm.email"
                             placeholder="email"/>
@@ -89,7 +92,7 @@
                     <input
                             required
                             type="password"
-                            ng-disabled="$ctrl.pending"
+                            ng-disabled="$ctrl.pendingService.pending"
                             name="password"
                             ng-model="$ctrl.formData.authForm.password"
                             placeholder="password">
@@ -97,7 +100,7 @@
                         <div class="my-message" ng-message="required">Password is required</div>
                     </div>
                 </md-input-container>
-                <md-button class="md-raised md-primary" ng-disabled="!Authorization.$valid" ng-click="$ctrl.login()">&nbsp Sign In &nbsp</md-button>
+                <md-button class="md-raised md-primary" ng-disabled="!Authorization.$valid || $ctrl.pendingService.pending" ng-click="$ctrl.login()">&nbsp Sign In &nbsp</md-button>
             </form>
         </md-card-content>
     </md-card>

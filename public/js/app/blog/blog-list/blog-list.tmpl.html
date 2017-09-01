@@ -47,9 +47,9 @@
 
     <dir-pagination-controls pagination-id="blog"></dir-pagination-controls>
     <h1 ng-if="$ctrl.posts.length == 0">Blog is empty</h1>
-    <md-list class="blog">
+    <md-list ng-if="$ctrl.posts.length > 0" class="blog">
         <md-list-item
-                ng-class="{'pending': $ctrl.pending === $index}"
+                ng-class="{'pending': $ctrl.pendingIndex === $index}"
                 class="md-3-line post"
                 dir-paginate="post in $ctrl.posts | orderBy: $ctrl.selectedFilter | itemsPerPage: $ctrl.itemsPerPage"
                 pagination-id="blog"
@@ -57,7 +57,6 @@
                 ui-sref="blogItem({itemId: post.id})">
             <div class="md-list-item-text">
                 <h2>{{post.title}}</h2>
-                <h2>{{$ctrl.pending}}</h2>
                 <h4>{{post.created | date: 'medium'}}</h4>
                 <p>{{post.text}}</p>
             </div>
