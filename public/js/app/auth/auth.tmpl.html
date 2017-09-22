@@ -105,3 +105,9 @@
         </md-card-content>
     </md-card>
 </div>
+<modal
+    ng-if="$ctrl.isErrorModalOpen"
+    title="$ctrl.authMessage"
+    ok="'Ok'",
+    resolve="$ctrl.hideErrorModal"
+></modal>

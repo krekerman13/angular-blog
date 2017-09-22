@@ -1,14 +1,9 @@
-<md-dialog class="addDialog" aria-label="Add post">
+
+    <h2>Add Post</h2>
     <form name="AddPost">
-    <md-dialog-content>
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>Add Post</h2>
-            </div>
-        </md-toolbar>
         <md-input-container>
             <label>Title</label>
-            <input name="title" ng-model="title" required ng-minlength="3" ng-maxlength="255">
+            <input name="title" ng-model="$ctrl.title" required ng-minlength="3" ng-maxlength="255">
             <div ng-messages="AddPost.title.$error" role="alert" multiple="">
                 <div class="my-message" ng-message="minlength">Too short</div>
                 <div class="my-message" ng-message="maxlength">Too long</div>
@@ -17,16 +12,13 @@
         </md-input-container>
         <md-input-container class="md-block">
             <label>Text</label>
-            <textarea required name="text" ng-model="text" md-maxlength="2000" rows="5" md-select-on-focus></textarea>
+            <textarea required name="text" ng-model="$ctrl.text" md-maxlength="2000" rows="5" md-select-on-focus></textarea>
             <div ng-messages="AddPost.text.$error" role="alert" multiple="">
                 <div class="my-message" ng-message="required">Text is required</div>
             </div>
         </md-input-container>
-
-    </md-dialog-content>
-    <md-dialog-actions>
-        <md-button ng-click="close()" class="md-primary">Cancel</md-button>
-        <md-button ng-disabled="!AddPost.$valid || pendingService.pending" ng-click="addPost()" class="md-primary">Create Post</md-button>
-    </md-dialog-actions>
+        <md-dialog-actions>
+            <md-button ng-click="$ctrl.close()" class="md-primary">Cancel</md-button>
+            <md-button ng-disabled="!AddPost.$valid || pendingService.pending" ng-click="$ctrl.addPost()" class="md-primary">Create Post</md-button>
+        </md-dialog-actions>
     </form>
-</md-dialog>

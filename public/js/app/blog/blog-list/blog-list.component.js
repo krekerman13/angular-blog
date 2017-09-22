@@ -12,17 +12,26 @@
         });
 
 
-    function blogListController($q, $timeout, blogService, $mdDialog, authService) {
+    function blogListController($q, $timeout, blogService, authService) {
         const $ctrl = this;
 
-        $ctrl.showAddDialog = showAddDialog;
+        // $ctrl.showAddDialog = showAddDialog;
         $ctrl.$onInit = $onInit;
         $ctrl.deletePost = deletePost;
+        $ctrl.getMatches = getMatches;
+
+        $ctrl.showAddingModal = showAddingModal;
+        $ctrl.hideAddingModal = hideAddingModal;
+        $ctrl.showDeletingModal = showDeletingModal;
+        $ctrl.hideDeletingModal = hideDeletingModal;
+
+        $ctrl.confirmDeleting = confirmDeleting;
         $ctrl.currentPage = 1;
         $ctrl.itemsPerPage = 3;
-        $ctrl.getMatches = getMatches;
         $ctrl.typeOfSearch = 'byTitle';
         $ctrl.pendingIndex = -1;
+        $ctrl.isDeleteModalOpen = false;
+        $ctrl.isAddingModalOpen = false;
 
         function getMatches(searchText) {
             let deferred = $q.defer();
@@ -39,19 +48,19 @@
             return deferred.promise;
         }
 
-        function showAddDialog(env) {
-            $mdDialog.show({
-                controller: addDialogController,
-                templateUrl: './js/app/blog/blog-list/directives/add-dialog.tmpl.html',
-                targetEvent: env,
-                clickOutsideToClose: true,
-                locals: {
-                    posts: $ctrl.posts,
-                    displayPosts: $ctrl.postsDisplay
-                }
-
-            });
-        }
+        // function showAddDialog(env) {
+        //     $mdDialog.show({
+        //         controller: addDialogController,
+        //         templateUrl: './js/app/blog/blog-list/directives/add-dialog.tmpl.html',
+        //         targetEvent: env,
+        //         clickOutsideToClose: true,
+        //         locals: {
+        //             posts: $ctrl.posts,
+        //             displayPosts: $ctrl.postsDisplay
+        //         }
+        //
+        //     });
+        // }
 
         function $onInit() {
             $ctrl.authService = authService;
@@ -59,24 +68,41 @@
         }
 
         function deletePost(id, $index) {
-            let confirm = $mdDialog.confirm()
-                .title('Would you like to delete this article?')
-                .ok('Ok')
-                .cancel('Cancel');
-
-            $mdDialog.show(confirm)
+            $ctrl.pendingIndex = $index;
+            blogService.removePost(id)
                 .then(() => {
-                    $ctrl.pendingIndex = $index;
-                    blogService.removePost(id)
-                        .then(() => {
-                            _.remove($ctrl.posts, {'id': id});
-                            $ctrl.pendingIndex = -1;
-                        });
-                    $mdDialog.hide();
-                }, () => {
+                    _.remove($ctrl.posts, {'id': id});
                     $ctrl.pendingIndex = -1;
-                    $mdDialog.hide();
+                    hideDeletingModal();
+                })
+                .catch((err)=> {
+                    $ctrl.pendingIndex = -1;
+                    hideDeletingModal()
+                    console.log(err);
                 });
+        }
+
+        function showDeletingModal(id, $index) {
+            $ctrl.id = id;
+            $ctrl.$index = $index;
+            $ctrl.isDeleteModalOpen = true;
+        }
+
+        function hideDeletingModal() {
+            $ctrl.pendingIndex = -1;
+            $ctrl.isDeleteModalOpen = false;
+        }
+
+        function confirmDeleting() {
+            deletePost($ctrl.id, $ctrl.$index);
+        }
+
+        function showAddingModal() {
+            $ctrl.isAddingModalOpen = true;
+        }
+
+        function hideAddingModal() {
+            $ctrl.isAddingModalOpen = false;
         }
     }
 }());

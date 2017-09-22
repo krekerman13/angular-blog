@@ -1,5 +1,5 @@
 <div class="blogList">
-    <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.showAddDialog()" class="md-fab addPost md-primary md-fab-bottom-right">
+    <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.showAddingModal()" class="md-fab addPost md-primary md-fab-bottom-right">
         <md-icon><i class="material-icons">add</i></md-icon>
     </md-button>
     <div layout="row" class="queryPanel">
@@ -60,11 +60,29 @@
                 <h4>{{post.created | date: 'medium'}}</h4>
                 <p>{{post.text}}</p>
             </div>
-            <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.deletePost(post.id, $index)">
+            <md-button ng-if="$ctrl.status.authorization" ng-click="$ctrl.showDeletingModal(post.id, $index)">
                 <md-icon><i class="material-icons">delete</i></md-icon>
             </md-button>
             <md-divider></md-divider>
         </md-list-item>
     </md-list>
+    <modal
+            ng-if="$ctrl.isDeleteModalOpen"
+            title="'Please, confirm your deleting'"
+            ok = "'Delete Post'"
+            cancel = "'Cancel'"
+            resolve="$ctrl.confirmDeleting"
+            reject="$ctrl.hideDeletingModal">
+    </modal>
+    <modal
+            class="addDialog"
+            ng-if="$ctrl.isAddingModalOpen"
+            resolve="$ctrl.hideAddingModal"
+            custom="{true}">
+        <add-dialog
+                posts="$ctrl.posts">
+        </add-dialog>
+    </modal>
+
 </div>
 

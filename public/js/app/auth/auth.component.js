@@ -17,18 +17,23 @@
         $ctrl.authMessage = '';
         $ctrl.regMessage = '';
         $ctrl.pendingService = pendingService;
+        $ctrl.isErrorModalOpen = false;
+
+        $ctrl.showErrorModal = showErrorModal;
+        $ctrl.hideErrorModal = hideErrorModal;
 
         function login() {
             authService.authUser($ctrl.formData.authForm)
                 .catch((err) => {
                     $ctrl.authMessage = err.data.message;
-                    $mdDialog.show(
-                        $mdDialog.alert()
-                            .clickOutsideToClose(true)
-                            .title('Authentication Error')
-                            .textContent($ctrl.authMessage)
-                            .ok('Ok')
-                    );
+                    // $mdDialog.show(
+                    //     $mdDialog.alert()
+                    //         .clickOutsideToClose(true)
+                    //         .title('Authentication Error')
+                    //         .textContent($ctrl.authMessage)
+                    //         .ok('Ok')
+                    // );
+                    showErrorModal();
                 });
         }
 
@@ -38,6 +43,14 @@
 
         function registration() {
             authService.registerUser($ctrl.formData.registrationForm);
+        }
+
+        function showErrorModal () {
+            $ctrl.isErrorModalOpen = true;
+        }
+
+        function hideErrorModal () {
+            $ctrl.isErrorModalOpen = false;
         }
     }
 })();

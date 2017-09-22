@@ -58,7 +58,10 @@
                         $state.go('main');
                         deffered.resolve();
                     })
-                .catch((err) => deffered.reject(err));
+                .catch((err) => {
+                    deffered.reject(err);
+                    pendingService.pending = false;
+                });
 
             return deffered.promise;
         }
