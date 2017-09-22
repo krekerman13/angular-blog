@@ -61,8 +61,8 @@
             "use strict";
             let deffered = $q.defer(),
                 headers = {
-                'Token': authService.getProfileData().token,
-            };
+                    'Token': authService.getProfileData().token,
+                };
 
             requestService.makeRequest(urls.blog + id, 'delete', headers)
                 .then((resp) => deffered.resolve(resp))

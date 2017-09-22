@@ -45,11 +45,11 @@
             authService.registerUser($ctrl.formData.registrationForm);
         }
 
-        function showErrorModal () {
+        function showErrorModal() {
             $ctrl.isErrorModalOpen = true;
         }
 
-        function hideErrorModal () {
+        function hideErrorModal() {
             $ctrl.isErrorModalOpen = false;
         }
     }

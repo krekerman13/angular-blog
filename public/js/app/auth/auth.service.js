@@ -72,8 +72,7 @@
             };
 
             requestService.makeRequest(urls.logout, 'post', headers)
-                .then(
-                    () => {
+                .then(() => {
                         removeProfileData();
                         _self.authData.authorization = false;
                     }

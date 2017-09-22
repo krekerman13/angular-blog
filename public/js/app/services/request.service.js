@@ -26,7 +26,7 @@
             $http(options)
                 .then(
                     (resp) => deffered.resolve(resp),
-                    (err) => deffered.reject(err),
+                    (err) => deffered.reject(err)
                 );
 
             return deffered.promise;

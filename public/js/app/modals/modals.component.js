@@ -25,7 +25,6 @@
         $ctrl.closeWithCancel = cancel;
 
 
-
         function close() {
             $ctrl.isOpen = false;
             return $ctrl.resolve();

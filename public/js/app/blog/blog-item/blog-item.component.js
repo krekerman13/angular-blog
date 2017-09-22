@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
 
     angular
@@ -24,7 +24,7 @@
 
         function $onInit() {
             $ctrl.isOpen = false;
-            if(!$ctrl.post) {
+            if (!$ctrl.post) {
                 $state.go('404');
             }
         }

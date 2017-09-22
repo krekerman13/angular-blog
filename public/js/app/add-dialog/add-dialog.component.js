@@ -20,10 +20,6 @@
         $ctrl.close = close;
         $ctrl.pendingService = pendingService;
 
-        console.log($ctrl.parent);
-
-        $ctrl.$onInit = () => console.log($ctrl.parent.close);
-
         function close() {
             return $ctrl.parent.close();
         }

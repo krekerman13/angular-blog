@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
 
     angular
@@ -13,7 +13,7 @@
                 link: link
             };
 
-            function link (scope, element, attrs, ngModel) {
+            function link(scope, element, attrs, ngModel) {
                 ngModel.$validators.pwdCheck = pwdCheck;
                 scope.$watch('passwordValue', watch);
 
