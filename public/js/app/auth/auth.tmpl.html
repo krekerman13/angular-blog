@@ -102,7 +102,7 @@
                         <div class="my-message" ng-message="required">Password is required</div>
                     </div>
                 </md-input-container>
-                <md-button class="md-raised md-primary"
+                <md-button class="md-raised signIn md-primary"
                            ng-disabled="!$ctrl.authorizationForm.$valid || $ctrl.pendingService.pending" ng-click="$ctrl.login()">
                     &nbsp Sign In &nbsp
                 </md-button>
@@ -111,6 +111,7 @@
     </md-card>
 </div>
 <modal
+    class="authErrorModal"
     ng-if="$ctrl.isErrorModalOpen"
     title="$ctrl.authMessage"
     ok="'Ok'" ,

@@ -32,7 +32,7 @@
                     //         .textContent($ctrl.authMessage)
                     //         .ok('Ok')
                     // );
-                    showErrorModal();
+                    $ctrl.showErrorModal();
                 });
         }
 
