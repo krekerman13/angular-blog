@@ -4,7 +4,7 @@
             <h2 flex ui-sref="main"><a href="#">Blog</a></h2>
 
 
-            <md-button ng-if="!$ctrl.authData.authorization" ui-sref="auth" aria-label="Login">
+            <md-button class="signin" ng-if="!$ctrl.authData.authorization" ui-sref="auth" aria-label="Login">
                 <span>Sign in</span>
                 <md-icon><i class="material-icons">person_add</i></md-icon>
             </md-button>
@@ -16,7 +16,7 @@
                 </md-button>
                 <md-menu-content width="4">
                     <md-menu-item>
-                        <md-button ng-click="$ctrl.logout()">
+                        <md-button class="logout" ng-click="$ctrl.logout()">
                             <md-icon><i class="material-icons">exit_to_app</i></md-icon>
                             <span md-menu-align-target>Log out</span></md-button>
                     </md-menu-item>

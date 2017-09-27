@@ -101,7 +101,6 @@
         function removeProfileData() {
             return localStorageService.remove('blogData');
         }
-
     }
 })();
 

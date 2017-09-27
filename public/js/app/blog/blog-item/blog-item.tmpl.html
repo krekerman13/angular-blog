@@ -7,7 +7,7 @@
         </md-fab-trigger>
         <md-fab-actions class="md-toolbar-tools">
             <div ng-if="$ctrl.authService.authData.authorization">
-                <md-button aria-label="menu" class="md-icon-button" ng-click="$ctrl.deletePost($ctrl.post.id)">
+                <md-button aria-label="menu" class="md-icon-button deletePost" ng-click="$ctrl.deletePost($ctrl.post.id)">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Delete</md-tooltip>
                     <md-icon><i class="material-icons">delete</i></md-icon>
                 </md-button>

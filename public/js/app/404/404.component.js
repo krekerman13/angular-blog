@@ -4,7 +4,7 @@
     angular
         .module('blog')
         .component('notFound', {
-            templateUrl: './js/app/404/404.tmpl.html',
+            templateUrl: 'build/views/404/404.tmpl.html',
             controller: controller
         })
 

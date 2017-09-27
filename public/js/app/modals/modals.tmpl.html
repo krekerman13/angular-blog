@@ -4,8 +4,8 @@
     </md-dialog-content>
     <ng-transclude></ng-transclude>
     <md-dialog-actions ng-if="!$ctrl.custom">
-        <md-button ng-if="$ctrl.cancel" ng-click="$ctrl.closeWithCancel()" class="md-primary">{{$ctrl.cancel}}
+        <md-button ng-if="$ctrl.cancel" ng-click="$ctrl.closeWithCancel()" class="md-primary modal-cancel">{{$ctrl.cancel}}
         </md-button>
-        <md-button ng-click="$ctrl.close()" class="md-primary">{{$ctrl.ok}}</md-button>
+        <md-button ng-click="$ctrl.close()" class="md-primary modal-ok">{{$ctrl.ok}}</md-button>
     </md-dialog-actions>
 </div>

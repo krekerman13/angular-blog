@@ -4,7 +4,7 @@
     angular
         .module('blog')
         .component('blogList', {
-            templateUrl: './js/app/blog/blog-list/blog-list.tmpl.html',
+            templateUrl: 'build/views/blog/blog-list/blog-list.tmpl.html',
             controller: blogListController,
             bindings: {
                 posts: '<'
@@ -12,7 +12,7 @@
         });
 
 
-    function blogListController($q, $timeout, blogService, authService) {
+    function blogListController($scope, $timeout, blogService, authService) {
         const $ctrl = this;
 
         // $ctrl.showAddDialog = showAddDialog;
@@ -24,8 +24,8 @@
         $ctrl.hideAddingModal = hideAddingModal;
         $ctrl.showDeletingModal = showDeletingModal;
         $ctrl.hideDeletingModal = hideDeletingModal;
-
         $ctrl.confirmDeleting = confirmDeleting;
+
         $ctrl.currentPage = 1;
         $ctrl.itemsPerPage = 3;
         $ctrl.typeOfSearch = 'byTitle';
@@ -34,18 +34,16 @@
         $ctrl.isAddingModalOpen = false;
 
         function getMatches(searchText) {
-            let deferred = $q.defer();
-
-            $timeout(() => {
-                let posts = $ctrl.posts.filter((post) =>
-                    $ctrl.typeOfSearch === 'byText'
-                        ? post.text.toUpperCase().indexOf(searchText.toUpperCase()) !== -1
-                        : post.title.toUpperCase().indexOf(searchText.toUpperCase()) !== -1
-                );
-                deferred.resolve(posts);
-            }, 500);
-
-            return deferred.promise;
+            return new Promise((resolve) => {
+                $timeout(() => {
+                    let posts = $ctrl.posts.filter((post) =>
+                        $ctrl.typeOfSearch === 'byText'
+                            ? post.text.toUpperCase().indexOf(searchText.toUpperCase()) !== -1
+                            : post.title.toUpperCase().indexOf(searchText.toUpperCase()) !== -1
+                    );
+                    resolve(posts);
+                }, 500);
+            });
         }
 
         // function showAddDialog(env) {
@@ -77,7 +75,7 @@
                 })
                 .catch((err)=> {
                     $ctrl.pendingIndex = -1;
-                    hideDeletingModal()
+                    hideDeletingModal();
                     console.log(err);
                 });
         }
@@ -91,6 +89,7 @@
         function hideDeletingModal() {
             $ctrl.pendingIndex = -1;
             $ctrl.isDeleteModalOpen = false;
+            $scope.$digest();
         }
 
         function confirmDeleting() {
@@ -103,6 +102,7 @@
 
         function hideAddingModal() {
             $ctrl.isAddingModalOpen = false;
+            $scope.$digest();
         }
     }
 }());

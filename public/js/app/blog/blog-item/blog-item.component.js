@@ -5,7 +5,7 @@
         .module('blog')
 
         .component('blogItem', {
-            templateUrl: './js/app/blog/blog-item/blog-item.tmpl.html',
+            templateUrl: 'build/views/blog/blog-item/blog-item.tmpl.html',
             controller: blogItemController,
             bindings: {
                 post: '<',

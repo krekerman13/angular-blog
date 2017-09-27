@@ -5,7 +5,7 @@
         .module('blog')
 
         .component('blogHeader', {
-            templateUrl: './js/app/header/header.tmpl.html',
+            templateUrl: 'build/views/header/header.tmpl.html',
             controller: headerController
         });
 

@@ -22,22 +22,23 @@ let paths = {
         },
         js: {
             vendor: 'public/js/vendors/*.js',
-            my: 'public/js/app/**/*.js',
+            my: ['public/js/app/**/*.js', '!public/js/app/**/*.spec.js'],
         },
-        html: 'public/*.html',
+        html: 'public/js/app/**/*.html',
         img: 'public/images/**/*.*'
     },
 
     build: {
         css: 'public/build/css',
         js: 'public/build/js',
-        html: 'public/build/',
+        html: 'public/build/views',
         img: 'public/build/img/'
     },
 
     watch: {
         js: 'public/js/app/**/*.js',
         style: 'public/styles/**/*.scss',
+        html: 'public/js/app/**/*.html',
     },
 
     clean: 'public/build/'
@@ -96,6 +97,11 @@ gulp.task('image:build', function () {
         .pipe(gulp.dest(paths.build.img))
 });
 
+gulp.task('html:templates', () => {
+    gulp.src(paths.src.html)
+        .pipe(gulp.dest(paths.build.html))
+})
+
 gulp.task('watch', function(){
     watch([paths.watch.style], function(event, cb) {
         gulp.start('style:build');
@@ -103,12 +109,16 @@ gulp.task('watch', function(){
     watch([paths.watch.js], function(event, cb) {
         gulp.start('js:build-app');
     });
+    watch([paths.watch.html], function (event,cb) {
+        gulp.start('html:templates');
+    })
 });
 
 
 gulp.task('build', [
     'js:build-app',
     'js:build-vendor',
+    'html:templates',
     'style:build',
     'style:build-vendors',
     'image:build'

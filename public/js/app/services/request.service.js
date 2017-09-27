@@ -18,7 +18,7 @@
 
             let options = {
                 url: url,
-                method: method,
+                method: method || 'get',
                 headers: headers,
                 data: data,
             };

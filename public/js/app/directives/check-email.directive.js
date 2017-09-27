@@ -3,7 +3,7 @@
 
     angular
         .module('auth')
-        .directive('checkEmail', ($http, authService) => {
+        .directive('checkEmail', (authService) => {
             return {
                 require: 'ngModel',
                 restrict: 'A',

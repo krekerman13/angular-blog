@@ -3,7 +3,7 @@
         .module('blog')
         .component('addDialog', {
             controller: addDialogController,
-            templateUrl: './js/app/add-dialog/add-dialog.tmpl.html',
+            templateUrl: 'build/views/add-dialog/add-dialog.tmpl.html',
             bindings: {
                 posts: '='
             },

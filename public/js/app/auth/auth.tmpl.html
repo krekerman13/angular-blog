@@ -1,16 +1,16 @@
 <div layout="row">
 
-<md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
-    <md-toolbar>
-        <div class="md-toolbar-tools">
-            <h2><span>Registration</span></h2>
-        </div>
-    </md-toolbar>
-    <md-card-content>
-        <form name="Registration">
-            <md-input-container class="md-block">
-                <label>Login</label>
-                <input
+    <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2><span>Registration</span></h2>
+            </div>
+        </md-toolbar>
+        <md-card-content>
+            <form name="$ctrl.registrationForm">
+                <md-input-container class="md-block">
+                    <label>Email</label>
+                    <input
                         type="email"
                         name="email"
                         check-email=""
@@ -18,15 +18,15 @@
                         ng-model="$ctrl.formData.registrationForm.email"
                         placeholder="login"
                         required=""/>
-                <div ng-messages="Registration.email.$error" role="alert" multiple="">
-                    <div class="my-message" ng-message="required">You must supply a email.</div>
-                    <div class="my-message" ng-message="emailExist">This address already exist</div>
-                    <div class="my-message" ng-message="email">Invalid email format</div>
-                </div>
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>Password</label>
-                <input
+                    <div ng-messages="$ctrl.registrationForm.email.$error" role="alert" multiple="">
+                        <div class="my-message" ng-message="required">You must supply a email</div>
+                        <div class="my-message" ng-message="emailExist">This address already exist</div>
+                        <div class="my-message" ng-message="email">Invalid email format</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Password</label>
+                    <input
                         type="password"
                         name="password"
                         ng-model="$ctrl.formData.registrationForm.password"
@@ -34,18 +34,16 @@
                         required=""
                         ng-disabled="$ctrl.pendingService.pending"
                         ng-minlength="8"
-                        ng-maxlength="40"
                         md-minlength="8"
                         md-maxlength="40"/>
-                <div ng-messages="Registration.password.$error" role="alert" multiple="">
-                    <div class="my-message" ng-message="minlength">Too short</div>
-                    <div class="my-message" ng-message="maxlength">Too long</div>
-                    <div class="my-message" ng-message="required">Password field is required</div>
-                </div>
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>Confirm Password</label>
-                <input
+                    <div ng-messages="$ctrl.registrationForm.password.$error" role="alert" multiple="">
+                        <div class="my-message" ng-message="minlength">Too short</div>
+                        <div class="my-message" ng-message="required">Password field is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Confirm Password</label>
+                    <input
                         ng-disabled="$ctrl.pendingService.pending"
                         type="password"
                         name="confirmPassword"
@@ -55,15 +53,18 @@
                         required=""
                         md-minlength="8"
                         md-maxlength="40"/>
-                <div ng-messages="Registration.confirmPassword.$error" role="alert" multiple="">
-                    <div class="my-message" ng-message="pwdCheck">Your passwords are differents</div>
-                    <div class="my-message" ng-message="required">Password field is required</div>
-                </div>
-            </md-input-container>
-            <md-button class="md-raised md-primary" ng-disabled="!Registration.$valid || $ctrl.pendingService.pending" ng-click="$ctrl.registration()">&nbsp Sign Up&nbsp</md-button>
-        </form>
-    </md-card-content>
-</md-card>
+                    <div ng-messages="$ctrl.registrationForm.confirmPassword.$error" role="alert" multiple="">
+                        <div class="my-message" ng-message="pwdCheck">Your passwords are differents</div>
+                        <div class="my-message" ng-message="required">Password field is required</div>
+                    </div>
+                </md-input-container>
+                <md-button class="md-raised signUp md-primary"
+                           ng-disabled="!$ctrl.registrationForm.$valid || $ctrl.pendingService.pending"
+                           ng-click="$ctrl.registration()">&nbsp Sign Up&nbsp
+                </md-button>
+            </form>
+        </md-card-content>
+    </md-card>
     <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
         <md-toolbar>
             <div class="md-toolbar-tools">
@@ -71,36 +72,40 @@
             </div>
         </md-toolbar>
         <md-card-content class="authForm">
-            <form name="Authorization">
+            <form name="$ctrl.authorizationForm">
                 <md-input-container class="md-block">
                     <label>Email</label>
                     <md-icon><i class="material-icons">email</i></md-icon>
                     <input
-                            required
-                            type="email"
-                            ng-disabled="$ctrl.pendingService.pending"
-                            name="email"
-                            ng-model="$ctrl.formData.authForm.email"
-                            placeholder="email"/>
-                    <div ng-messages="Authorization.email.$error" role="alert" multiple="">
+                        required
+                        type="email"
+                        ng-disabled="$ctrl.pendingService.pending"
+                        name="email"
+                        ng-model="$ctrl.formData.authForm.email"
+                        placeholder="email"/>
+                    <div ng-messages="$ctrl.authorizationForm.email.$error" role="alert" multiple="">
                         <div class="my-message" ng-message="required">Email is required</div>
+                        <div class="my-message" ng-message="email">Invalid email format</div>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Password</label>
                     <md-icon><i class="material-icons">security</i></md-icon>
                     <input
-                            required
-                            type="password"
-                            ng-disabled="$ctrl.pendingService.pending"
-                            name="password"
-                            ng-model="$ctrl.formData.authForm.password"
-                            placeholder="password">
-                    <div ng-messages="Authorization.password.$error" role="alert" multiple="">
+                        required
+                        type="password"
+                        ng-disabled="$ctrl.pendingService.pending"
+                        name="password"
+                        ng-model="$ctrl.formData.authForm.password"
+                        placeholder="password">
+                    <div ng-messages="$ctrl.authorizationForm.password.$error" role="alert" multiple="">
                         <div class="my-message" ng-message="required">Password is required</div>
                     </div>
                 </md-input-container>
-                <md-button class="md-raised md-primary" ng-disabled="!Authorization.$valid || $ctrl.pendingService.pending" ng-click="$ctrl.login()">&nbsp Sign In &nbsp</md-button>
+                <md-button class="md-raised md-primary"
+                           ng-disabled="!$ctrl.authorizationForm.$valid || $ctrl.pendingService.pending" ng-click="$ctrl.login()">
+                    &nbsp Sign In &nbsp
+                </md-button>
             </form>
         </md-card-content>
     </md-card>
@@ -108,6 +113,6 @@
 <modal
     ng-if="$ctrl.isErrorModalOpen"
     title="$ctrl.authMessage"
-    ok="'Ok'",
+    ok="'Ok'" ,
     resolve="$ctrl.hideErrorModal"
 ></modal>

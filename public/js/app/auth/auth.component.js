@@ -1,14 +1,14 @@
 (function () {
     "use strict";
     angular
-        .module('auth')
+        .module('blog')
 
         .component('auth', {
-            templateUrl: './js/app/auth/auth.tmpl.html',
+            templateUrl: 'build/views/auth/auth.tmpl.html',
             controller: authController,
         });
 
-    function authController(authService, $mdDialog, pendingService) {
+    function authController(authService, pendingService) {
         const $ctrl = this;
 
         $ctrl.login = login;
@@ -18,7 +18,6 @@
         $ctrl.regMessage = '';
         $ctrl.pendingService = pendingService;
         $ctrl.isErrorModalOpen = false;
-
         $ctrl.showErrorModal = showErrorModal;
         $ctrl.hideErrorModal = hideErrorModal;
 
