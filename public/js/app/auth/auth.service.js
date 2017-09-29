@@ -31,53 +31,59 @@
         }
 
         function registerUser(userData) {
-            let deffered = $q.defer();
-
-            requestService.makeRequest(urls.registration, 'post', undefined, userData)
-                .then(() => authUser(userData))
-                .catch((err) => deffered.reject(err.status));
-
-            return deffered.promise;
+            return new Promise((resolve, reject) => {
+                requestService.makeRequest(urls.registration, 'post', undefined, userData)
+                    .then(() => {
+                        _self.authUser(userData);
+                        resolve();
+                    })
+                    .catch((err) => reject(err.status));
+            })
         }
 
         function authUser(userData) {
-            let deffered = $q.defer();
-
-            pendingService.pending = true;
-            requestService.makeRequest(urls.signIn, 'post', undefined, userData)
-                .then(
-                    (res) => {
-                        let data = {
-                            token: res.data.token,
-                            email: res.config.data.email
-                        };
+            return new Promise((resolve, reject) => {
+                pendingService.pending = true;
+                requestService.makeRequest(urls.signIn, 'post', undefined, userData)
+                    .then(
+                        (res) => {
+                            let data = {
+                                token: res.data.token,
+                                email: res.config.data.email
+                            };
+                            pendingService.pending = false;
+                            setProfileData(data);
+                            _self.authData.email = data.email;
+                            _self.authData.authorization = true;
+                            $state.go('main');
+                            resolve();
+                        })
+                    .catch((err) => {
+                        reject(err);
                         pendingService.pending = false;
-                        setProfileData(data);
-                        _self.authData.email = data.email;
-                        _self.authData.authorization = true;
-                        $state.go('main');
-                        deffered.resolve();
-                    })
-                .catch((err) => {
-                    deffered.reject(err);
-                    pendingService.pending = false;
-                });
-
-            return deffered.promise;
+                    });
+            })
         }
 
         function logout() {
-            let headers = {
-                'Token': getProfileData().token
-            };
 
-            requestService.makeRequest(urls.logout, 'post', headers)
-                .then(() => {
-                        removeProfileData();
-                        _self.authData.authorization = false;
-                    }
-                )
-                .catch((err) => console.log(err));
+            return new Promise((resolve, reject) => {
+                let headers = {
+                    'Token': getProfileData().token
+                };
+
+                requestService.makeRequest(urls.logout, 'post', headers)
+                    .then(() => {
+                            _self.authData.authorization = false;
+                            removeProfileData();
+                            resolve();
+                        }
+                    )
+                    .catch((err) => {
+                        console.log(err);
+                        reject(err);
+                    });
+            });
         }
 
         function checkEmail(email) {

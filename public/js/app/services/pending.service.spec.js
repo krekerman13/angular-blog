@@ -1,4 +1,4 @@
-describe('pending service',() => {
+describe('pending service', () => {
     let pendingService;
 
     beforeEach(angular.mock.module('blog'));
@@ -18,4 +18,4 @@ describe('pending service',() => {
         expect(pendingService.pending = true).toBe(true);
     })
 
-})
+});

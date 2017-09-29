@@ -287,6 +287,7 @@ describe('authComponent', ()=> {
             password: 'qqqqqqqq',
             confirmPassword: 'qqqqqqqq'
         };
+
         spyOn(authService, 'registerUser');
         $ctrl.registrationForm.email.$setViewValue(mockData.email);
         $ctrl.registrationForm.password.$setViewValue(mockData.password);

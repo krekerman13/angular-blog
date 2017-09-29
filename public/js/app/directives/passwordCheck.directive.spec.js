@@ -9,20 +9,20 @@ describe('checkPasswordDirective', ()=> {
     beforeEach(angular.mock.inject((_$rootScope_, _$compile_, _$httpBackend_) => {
         $scope = _$rootScope_.$new();
         let template =
-            '<form name="form">'+
-            '<input '+
-                'type="password"'+
-                'ng-model="password"'+
-                'name="password"'+
-                'placeholder="password"'+
-                'required=""/>'+
-            '<input '+
-                'type="password"'+
-                'ng-model="confirmPassword"'+
-                'name="confirmPassword"'+
-                'pwd-check="password"'+
-                'placeholder="Repeat password"'+
-                'required=""/>'+
+            '<form name="form">' +
+            '<input ' +
+            'type="password"' +
+            'ng-model="password"' +
+            'name="password"' +
+            'placeholder="password"' +
+            'required=""/>' +
+            '<input ' +
+            'type="password"' +
+            'ng-model="confirmPassword"' +
+            'name="confirmPassword"' +
+            'pwd-check="password"' +
+            'placeholder="Repeat password"' +
+            'required=""/>' +
             '</form>';
 
 
@@ -46,4 +46,4 @@ describe('checkPasswordDirective', ()=> {
         form.confirmPassword.$setViewValue(123456);
         expect(form.confirmPassword.$valid).toBe(false);
     });
-})
+});

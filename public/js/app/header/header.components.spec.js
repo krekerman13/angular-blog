@@ -7,7 +7,7 @@ describe('headerComponent', () => {
     beforeEach(angular.mock.module('blog'));
     beforeEach(module('templates'));
 
-    beforeEach(angular.mock.inject((_authService_,_blogService_, _$rootScope_, _$compile_, _$httpBackend_) => {
+    beforeEach(angular.mock.inject((_authService_, _blogService_, _$rootScope_, _$compile_, _$httpBackend_) => {
         $scope = _$rootScope_.$new();
         element = angular.element('<blog-header></blog-header>');
         element = _$compile_(element)($scope);
@@ -25,6 +25,8 @@ describe('headerComponent', () => {
     });
 
     it('if user is authorized, his email should be display, if not - should not', ()=> {
+        $ctrl.authData.authorization = false;
+        $scope.$digest();
         expect(element.find('.email').length).toBe(0);
         expect(element.find('.signin span').text()).toBe('Sign in');
 

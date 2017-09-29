@@ -11,6 +11,6 @@ describe('request service', () => {
         expect(requestService.makeRequest).toBeDefined());
     it('bad request', ()=>
         expect(() => requestService.makeRequest()).toThrowError());
-    it('good request',() =>
+    it('good request', () =>
         expect(()=> requestService.makeRequest('params')).not.toThrowError());
-})
+});

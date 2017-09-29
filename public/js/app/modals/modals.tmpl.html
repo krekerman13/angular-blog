@@ -1,10 +1,11 @@
 <div class="modal">
     <md-dialog-content>
-        <h2>{{$ctrl.title}}</h2>
+        <h2 ng-if="!$ctrl.custom">{{$ctrl.title}}</h2>
     </md-dialog-content>
     <ng-transclude></ng-transclude>
     <md-dialog-actions ng-if="!$ctrl.custom">
-        <md-button ng-if="$ctrl.cancel" ng-click="$ctrl.closeWithCancel()" class="md-primary modal-cancel">{{$ctrl.cancel}}
+        <md-button ng-if="$ctrl.cancel" ng-click="$ctrl.closeWithCancel()" class="md-primary modal-cancel">
+            {{$ctrl.cancel}}
         </md-button>
         <md-button ng-click="$ctrl.close()" class="md-primary modal-ok">{{$ctrl.ok}}</md-button>
     </md-dialog-actions>

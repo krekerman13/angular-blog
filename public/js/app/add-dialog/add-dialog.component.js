@@ -10,9 +10,9 @@
             require: {
                 parent: '^modal'
             },
-        })
+        });
 
-    function addDialogController($scope, blogService, pendingService) {
+    function addDialogController(blogService, pendingService) {
         'use strict';
 
         const $ctrl = this;

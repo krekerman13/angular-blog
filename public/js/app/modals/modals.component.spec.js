@@ -7,14 +7,13 @@ describe('modalComponent', ()=> {
         title,
         ok,
         cancel,
-        custom,
         reject,
         resolve;
 
     beforeEach(angular.mock.module('blog'));
     beforeEach(module('templates'));
 
-    beforeEach(angular.mock.inject((_$compile_, _$rootScope_, _$httpBackend_ ) => {
+    beforeEach(angular.mock.inject((_$compile_, _$rootScope_, _$httpBackend_) => {
         $scope = _$rootScope_.$new();
         $compile = _$compile_;
         element = angular.element('<modal></modal>');
@@ -89,4 +88,4 @@ describe('modalComponent', ()=> {
         expect($ctrl.close.calls.count()).toBe(1);
         expect($ctrl.closeWithCancel.calls.count()).toBe(1);
     });
-})
+});

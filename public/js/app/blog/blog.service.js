@@ -33,9 +33,9 @@
 
         function addPost(post) {
             return new Promise((resolve, reject)=> {
-               let headers = {
-                   'Token': authService.getProfileData().token,
-               };
+                let headers = {
+                    'Token': authService.getProfileData().token,
+                };
                 pendingService.pending = true;
                 requestService.makeRequest(urls.blog, 'post', headers, post)
                     .then((resp) => {
