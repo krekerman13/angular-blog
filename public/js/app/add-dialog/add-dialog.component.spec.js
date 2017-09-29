@@ -110,6 +110,5 @@ describe('addDialogComponent', ()=> {
                 expect($ctrl.posts[3]).toEqual(newPost.data);
             }, 100)
         });
-    })
-
+    });
 });
