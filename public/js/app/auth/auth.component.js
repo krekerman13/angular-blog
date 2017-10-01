@@ -8,7 +8,7 @@
             controller: authController,
         });
 
-    function authController(authService, pendingService) {
+    function authController(authService, pendingService, $scope) {
         const $ctrl = this;
 
         $ctrl.login = login;
@@ -33,6 +33,7 @@
                     //         .ok('Ok')
                     // );
                     $ctrl.showErrorModal();
+                    $scope.$digest();
                 });
         }
 
