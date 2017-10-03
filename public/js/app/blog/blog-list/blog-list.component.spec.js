@@ -44,6 +44,7 @@ describe('blogListComponent', ()=> {
 
         _$httpBackend_.expectGET('//localhost:3000/api/blog/').respond(200, '');
         _$httpBackend_.flush();
+
     }));
 
     it('all func and objects should be defined', ()=> {
@@ -98,9 +99,6 @@ describe('blogListComponent', ()=> {
         })
     });
     describe('filters should working correct', ()=> {
-        let $filter;
-        beforeEach(angular.mock.inject(_$filter_ => $filter = _$filter_));
-
         it('sort by created date | first new', ()=> {
             let firstPost = element.find('.md-list-item-text').first().find('h2').text();
             expect(firstPost).toBe(posts[2].title);
