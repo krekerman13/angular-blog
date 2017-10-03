@@ -76,7 +76,7 @@ describe('blogListComponent', ()=> {
             expect($ctrl.getMatches).toHaveBeenCalledWith('ss');
 
             $timeout.flush();
-            $timeout.verifyNoPendingTasks()
+            $timeout.verifyNoPendingTasks();
 
             result.then((resp) => expect(resp[0]).toEqual(posts[0]));
         });
@@ -92,7 +92,7 @@ describe('blogListComponent', ()=> {
             expect($ctrl.getMatches).toHaveBeenCalledWith('w');
 
             $timeout.flush();
-            $timeout.verifyNoPendingTasks()
+            $timeout.verifyNoPendingTasks();
 
             result.then((resp) => expect(resp[0]).toEqual(posts[1]));
         })
@@ -155,6 +155,7 @@ describe('blogListComponent', ()=> {
             expect($ctrl.hideAddingModal.calls.count()).toBe(0);
             $ctrl.hideAddingModal();
             expect($ctrl.hideAddingModal.calls.count()).toBe(1);
+            $timeout.flush();
             expect($ctrl.isAddingModalOpen).toBe(false);
         })
     });

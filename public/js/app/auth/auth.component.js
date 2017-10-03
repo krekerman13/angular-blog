@@ -8,7 +8,7 @@
             controller: authController,
         });
 
-    function authController(authService, pendingService, $scope) {
+    function authController(authService, pendingService, $timeout) {
         const $ctrl = this;
 
         $ctrl.login = login;
@@ -32,8 +32,7 @@
                     //         .textContent($ctrl.authMessage)
                     //         .ok('Ok')
                     // );
-                    $ctrl.showErrorModal();
-                    $scope.$digest();
+                    $timeout($ctrl.showErrorModal, 100);
                 });
         }
 
@@ -46,7 +45,7 @@
         }
 
         function showErrorModal() {
-            $ctrl.isErrorModalOpen = true;
+            $ctrl.isErrorModalOpen = true
         }
 
         function hideErrorModal() {

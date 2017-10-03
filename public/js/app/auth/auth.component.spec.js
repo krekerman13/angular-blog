@@ -6,14 +6,16 @@ describe('authComponent', ()=> {
         requestService,
         pendingService,
         deferred,
+        $timeout,
         $ctrl;
 
     beforeEach(angular.mock.module('blog'));
     beforeEach(module('templates'));
-    beforeEach(angular.mock.inject((_$compile_, _$rootScope_, _$httpBackend_, _$q_, _authService_, _requestService_, _pendingService_) => {
+    beforeEach(angular.mock.inject((_$compile_, _$rootScope_, _$httpBackend_, _$q_, _$timeout_, _authService_, _requestService_, _pendingService_) => {
         authService = _authService_;
         requestService = _requestService_;
         pendingService = _pendingService_;
+        $timeout = _$timeout_;
         deferred = _$q_.defer();
         $scope = _$rootScope_.$new();
         element = angular.element('<auth></auth>');
@@ -60,6 +62,7 @@ describe('authComponent', ()=> {
             deferred.reject(error);
             $scope.$digest();
             expect($ctrl.authMessage).toBe(error.data.message);
+            $timeout.flush();
             expect($ctrl.showErrorModal.calls.count()).toBe(1);
         });
     });

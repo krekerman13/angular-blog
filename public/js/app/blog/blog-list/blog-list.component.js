@@ -71,11 +71,11 @@
                 .then(() => {
                     _.remove($ctrl.posts, {'id': id});
                     $ctrl.pendingIndex = -1;
-                    hideDeletingModal();
+                    $timeout(hideDeletingModal, 100);
                 })
                 .catch((err)=> {
                     $ctrl.pendingIndex = -1;
-                    hideDeletingModal();
+                    $timeout(hideDeletingModal, 100);
                     console.log(err);
                 });
         }
@@ -89,7 +89,6 @@
         function hideDeletingModal() {
             $ctrl.pendingIndex = -1;
             $ctrl.isDeleteModalOpen = false;
-            $scope.$digest();
         }
 
         function confirmDeleting() {
@@ -101,8 +100,7 @@
         }
 
         function hideAddingModal() {
-            $ctrl.isAddingModalOpen = false;
-            $scope.$digest();
+            $timeout(()=> $ctrl.isAddingModalOpen = false, 100);
         }
     }
 }());
